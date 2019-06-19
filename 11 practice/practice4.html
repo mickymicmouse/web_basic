@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <title> practice 4 </title>
+            <meta charset="UTF-8">
+            
+    </head>
+    <body>
+        <center>
+    <form name="form01">
+        <input type="text" name="input01" value="" size="5">
+        <input type="text" name="input04" value="" size="1">
+        <input type="text" name="input02" value="" size="5">
+        &nbsp;=&nbsp;
+        <input type="text" name="input03" value="" size="10">
+        <br>
+
+
+        <input type="button" onclick="add()" value="add">
+        <input type="button" onclick="subtract()" value="subtract">
+        <input type="button" onclick="mutiply()" value="mutiply">
+        <input type="button" onclick="divide()" value="divide">
+
+        <script>
+                function add(){
+                    window.document.form01.input04.value = "+";
+                    var number1 = window.document.form01.input01.value;
+                    var number2 = window.document.form01.input02.value;
+                    number1 = parseInt(number1);
+                    number2 = parseInt(number2);
+                    var total = number1+number2;
+                    window.document.form01.input03.value = total;   
+                }
+                function subtract() {
+                    window.document.form01.input04.value = "-";
+                    var number1 = window.document.form01.input01.value;
+                    var number2 = window.document.form01.input02.value;
+                    number1 = parseInt(number1);
+                    number2 = parseInt(number2);
+                    var total = number1-number2;
+                    window.document.form01.input03.value = total;
+                }
+                function mutiply() {
+                    window.document.form01.input04.value = "*";
+                    var number1 = window.document.form01.input01.value;
+                    var number2 = window.document.form01.input02.value;
+                    number1 = parseInt(number1);
+                    number2 = parseInt(number2);
+                    var total = number1*number2;
+                    window.document.form01.input03.value = total;
+                }
+                function divide() {
+                    window.document.form01.input04.value = "/";
+                    var number1 = window.document.form01.input01.value;
+                    var number2 = window.document.form01.input02.value;
+                    number1 = parseInt(number1);
+                    number2 = parseInt(number2);
+                    var total = number1/number2;
+                    window.document.form01.input03.value = total;
+                }
+
+            </script>
+    </form>
+        </center>
+    
+    
+    
+    
+    </body>
+</html>

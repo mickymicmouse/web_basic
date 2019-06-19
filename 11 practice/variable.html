@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html> 
+<body><p> 
+<?php $foo = true; if ($foo) echo "1. It is TRUE! <br/>"; 
+$txt = '1234'; echo "2. $txt <br/>"; 
+$num = 1234; echo "3. $num <br/>"; 
+$num = 1.234; echo "4. $num <br/>"; 
+$beer = 'Heineken'; echo "5. $beer's taste is great <br/>"; 
+$beer = 'Heineken'; echo "6. \$beer's taste is great <br/>"; 
+$str = <<<EOD 
+7. Example of string spanning multiple lines 
+using "heredoc" syntax. 
+EOD; 
+echo $str;
+?>
+</p></body> </html>

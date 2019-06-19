@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+<p>
+<?php $arr = array("foo" => "bar", 12 => true); echo $arr["foo"]; echo $arr[12]; ?>
+</p>
+<p>
+<?php array(5 => 43, 32, 56, "b" => 12); 
+array(5 => 43, 6 => 32, 7 => 56, "b" => 12); 
+?>
+</p>
+<p>
+<?php $arr = array(5 => 1, 12 => 2);
+ foreach ($arr as $key => $value) { 
+	echo $key, '=>', $value;  
+} 
+echo '<br>'; 
+$arr[] = 56;    // the same as $arr[13] = 56; 
+$arr["x"] = 42; // adds a new element 
+foreach ($arr as $key => $value) { 
+echo $key, '=>', $value;  
+} 
+?>
+</p>
+</body>
+</html>

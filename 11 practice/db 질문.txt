@@ -1,0 +1,27 @@
+db질문
+
+1. 랩실 지원시 이력서 자기소개서에는 무엇을 작성해야 하는지
+2. 지원하는데 있어서 보유 역량
+3. 스크립트 내에서 띄어쓰기
+4. 페이지7의 스플릿 표현방법
+5. 스크립트내에서 br쓰는법
+6. <b>의 의미
+7. 과제1에서 두숫자를 한곳에 입력받아야하는지 아니면 두군데서 입력받아서 더하고 결과를 반환해도 되는지
+8. angular에서 name이 진짜 name이 뜨는건지 이름이 반환되는건지
+
+
+
+공부
+자바스크립트 빌드업
+string, array, date, boolean, math
+var    var    var            math
+
+dom document object model
+--> 독립적인 플랫폼이고 언어
+--> 문맥과 구조와 스타일을 동적으로 접근, 수정 
+
+--> html상에서 문맥에 있는 것을 스크립트로 지정할 때 지정법.
+getElementBYId
+getElementBYTagName
+getElementBYClassName
+

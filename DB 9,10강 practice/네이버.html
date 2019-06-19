@@ -1,0 +1,4724 @@
+<!DOCTYPE html>
+<html>
+
+<body class=""><div id="photoviewer" class="photo_view" style="position: absolute; display: none; top: 50px; left: 100px; width: 200px; height: 200px; z-index: 1000; cursor: pointer;">				<div class="view_top" style="cursor: move;">					<h3 style="margin-bottom: -6px;"><img src="https://blogimgs.pstatic.net/blog20/blog/layout_photo/viewer2/lg_photoviewer.gif" width="133" height="31" alt="NAVER PHOTO VIEWER"></h3>					<div class="tab_navi">						<p class="btn_left"><a href="#" onclick="return false;" style="cursor: pointer;"><img src="https://blogimgs.pstatic.net/blog20/blog/layout_photo/viewer2/btn_left.gif" width="31" height="21" alt="이전"></a></p>						<p class="btn_right"><a href="#" onclick="return false;" style="cursor: pointer;"><img src="https://blogimgs.pstatic.net/blog20/blog/layout_photo/viewer2/btn_right.gif" width="32" height="21" alt="다음"></a></p>					</div>					<div class="photo_count"><strong><span class="current"></span></strong>&nbsp;/&nbsp;<span class="total"></span></div>				</div>				<div class="photo_album">					<p></p>					<a href="#" title="원본보기" class="btn_original" style="display: none; cursor: pointer;"><img src="https://blogimgs.pstatic.net/blog20/blog/layout_photo/viewer2/btn_original2.png" width="80" height="80" alt="원본보기"></a>					<div class="photo_shadow"></div>				</div>								<iframe style="display:block;position:absolute;visibility:hidden;width:0px;height:0px;"></iframe>				<iframe frameborder="0" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="no" style="filter:alpha(opacity=0);-ms-filter:'alpha(opacity=0)';position:absolute;top:0;left:0;width:100%;height:100%;display:block;background:transparent;" src=""></iframe>			<div class="btn_close" style="z-index:2"><a href="#" onclick="return false;"><img src="https://blogimgs.pstatic.net/blog20/blog/layout_photo/viewer2/btn_close.gif" width="23" height="22" alt="닫기"></a></div></div><link rel="stylesheet" type="text/css" href="/common/storyphoto/original_viewer.css">
+
+
+	
+	
+	
+		
+		
+
+
+
+	
+
+
+
+
+
+
+
+
+<style data-flash-detector-css="">
+.Flash_det_wrap {
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#e2e7e5;
+    width:100%;
+    height:60px;
+    font-family:'???????³????',NanumGothic, san-serif;
+    font-size:12px;
+    z-index:99999;
+}
+.Flash_det_wrap:after{
+    content:'';
+    display:block;
+    clear: both;
+}
+.Flash_det_wrap .Flash_det_play_area {
+    float:left;
+    width:28px;
+    height:28px;
+    margin:15px 0 0 15px;
+    padding:1px;
+    border:1px #d0d9cd solid;
+    background-color:#f7f7f7;
+}
+.Flash_det_wrap .Flash_det_see {
+    margin:0 8px;
+    padding:5px 15px;
+    background-color:#a3b0b3;
+    border-radius:15px 15px 15px 15px;
+    text-decoration:none;
+    color:#fff;
+    font-family:'???????³????',NanumGothic, san-serif;
+}
+.Flash_det_wrap .Flash_det_text{
+    float:left;
+    margin:0 8px 0;
+    font-weight:bold;
+    line-height:62px;
+    color:#929994;
+    font-family:'???????³????',NanumGothic, san-serif;
+}
+.Flash_det_wrap .Flash_det_nosee_area {
+    position:absolute;
+    top:25px;
+    right:20px;
+}
+.Flash_det_wrap .Flash_det_close {
+    border:0;
+    background:0;
+    margin-top:-5px;
+    vertical-align:top;
+    cursor:pointer;
+}
+</style>
+<script type="text/javascript" charset="utf-8" src="/common/flash/chrome.flash.detect.js" data-flash-detector-for-chrome=""></script><div class="Flash_det_wrap activated-detector" data-flash-detector-container="" style=""><span class="Flash_det_play_area" data-flash-area=""><embed src="/common/flash/naver.flash.detector.swf" wmode="direct" bgcolor="#ffffff" quality="low" width="100%" height="100%" align="middle" flashvars="destroyDetector=__destroyFlashDetector" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"></span>
+<span class="Flash_det_text">원활한 사용을 위해 왼쪽 아이콘 클릭 후 팝업창이 뜨면 플래시 실행 '허용' 버튼을 클릭해주세요.</span>
+<span class="Flash_det_nosee_area">
+<a href="https://help.naver.com/support/alias/cafe/commonness.naver" target="_blank" class="Flash_det_see">자세히 보기</a>
+<button class="Flash_det_close" onclick="__destroyFlashDetector()" type="button" aria-label="close">
+<img width="22px" height="22px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTMyIDc5LjE1OTI4NCwgMjAxNi8wNC8xOS0xMzoxMzo0MCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0NWU5NTNmZC1kZjA5LTA2NGEtOWVkMS1hNmU5YjU4MzNjNTEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Nzk4MzZDNzFBNEMyMTFFNjhDM0VGRjY1M0E5ODE4RjkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Nzk4MzZDNzBBNEMyMTFFNjhDM0VGRjY1M0E5ODE4RjkiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUuNSAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxM2E1N2JkMC04ZTlkLTU0NGUtOWY0Ny1mZmVkNzMxOGRhODEiIHN0UmVmOmRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDpiZWQwMmRjZS1hNGMxLTExZTYtOGM0NC04NWZmZjNkNWFjMmYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6ll0f6AAAAlElEQVR42rTTWQ6AIAxF0XLj/pfCFjEmxqBSWkvlj+kE6KPUWpuIFMltjRNtmehhcnay8Ov2dIOr+O1JeUxG8VedGCz6ig+Lj7LYi6uJYrLJwqcxxTiRhpvZx3HdJ+76UJuzQD3u+qXIT42PkXJHkUCkXDjBnJo40ZxaOEHUxFlApziLqIqTgA5xktAXTiJ6w3cBBgAPdys4w+hB+AAAAABJRU5ErkJggg==">
+</button>
+</span></div>
+
+<div id="u_skip">
+	<a href="#cafe-menu" onclick="var t=document.getElementById('cafe-menu');t.tabIndex=-1;t.focus();return false;" class="skip">게시판 목록 바로가기</a>
+	<a href="#main-area" onclick="var t=document.getElementById('main-area');t.tabIndex=-1;t.focus();return false;" class="skip">본문 바로가기</a>
+	<a id="u_skipToMobileweb" href="https://m.cafe.naver.com/tantanms/10350" class="skip">웹 접근성이 좋은 모바일 웹에서 사용하겠습니까?</a>
+</div>
+
+
+
+
+
+
+<h1 class="d-none">[알기쉬운 정책자금] 정책자금,기업부설연구소, 벤처인증</h1>
+
+
+<div id="cafe-body-skin">
+	<div id="cafe-body">
+		
+		
+		
+
+		
+		<div id="naver-gnb">
+			
+
+			
+				
+
+
+
+
+    <a href="http://www.naver.com" class="link_naver"><img src="https://ssl.pstatic.net/static/cafe/icon_naver_190423.png" width="52" height="10" alt="NAVER"></a>
+
+<div id="gnb-menu">
+    <p class="naver-h" id="naver-h">
+        <a href="https://section.cafe.naver.com">카페홈</a>
+        <img src="https://cafe.pstatic.net/cafe4/ico-blank.gif" width="1" height="10" alt="" class="tcol-c">
+    </p>
+    <div id="button_join_cafe" class="join-cafe off">
+        <a href="#">가입카페</a>
+        <a href="#"><img id="joincafeimg" src="https://cafe.pstatic.net/cafe4/hidden.gif" width="13" height="13" alt="가입카페" class="btn-join down-gnb"></a>
+        <img src="https://cafe.pstatic.net/cafe4/ico-blank.gif" width="1" height="10" alt="" class="tcol-c">
+    </div>
+    <div id="button_mynews_alarm" class="chatting-cafe">
+        <a href="#" class="link_chatting">새글<span class="count"><span class="blind">새로운 글</span>26</span></a>
+        <img src="https://cafe.pstatic.net/cafe4/ico-blank.gif" width="1" height="10" alt="" class="tcol-c">
+    </div>
+    <div id="button_mynews_activity" class="chatting-cafe mynews-cafe off">
+        <a href="#" class="link_chatting">내소식</a>
+        <img src="https://cafe.pstatic.net/cafe4/ico-blank.gif" width="1" height="10" alt="" class="tcol-c">
+    </div>
+    <div id="layer_mynews_activity" class="cc_layer_mynews" style="display: none">
+        <div class="cc_mynews_header">
+            <h2 class="title">내소식</h2>
+        </div>
+
+        <div class="cc_mynews_content">
+            <div class="cc_mynews_none" style="display: none">
+                <strong class="title">내소식이 없습니다.</strong>
+                <p class="txt">가입한 카페의 활동 알림과 댓글알림을<br>이곳에서 모아볼 수 있어요.</p>
+            </div>
+
+            <div class="cc_mynews_area" style="display: none">
+                <span class="blind">최근 30일 이내의 최신순 소식입니다.</span>
+                <ul class="cc_mynews_list ">
+                    <li id="_mynews_notice_tooltip">
+                        <div class="cc_mynews_notice">
+                            <p class="notice_txt">
+                                알림의 <span class="icon_option"></span> 버튼을 클릭하면, 알림을 설정할 수 있어요.
+                            </p>
+                            <!-- [D] .btn_close 클릭 시 공지 레이어는 미노출되게 해주세요~ -->
+                            <button id="_btn_hide_mynews_notice" type="button" class="btn_close"><span class="blind">공지 닫기</span></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="cc_layer_alert" style="display:none;">
+        <strong class="blind">내소식 안내 레이어팝업</strong>
+        <div class="cc_alert_content">
+            <p class="txt"></p>
+        </div>
+        <div class="cc_alert_footer">
+            <button type="submit" class="cc_alert_btn">확인</button>
+        </div>
+    </div>
+
+    <div class="chatting-cafe">
+        <a href="#" class="link_chatting" onclick="openCafeTalk();return false;">채팅</a>
+        <img src="https://cafe.pstatic.net/cafe4/ico-blank.gif" width="1" height="10" alt="" class="tcol-c">
+    </div>
+    <!-- GNB 템플릿 적용부 -->
+    <div id="gnb" class=""><strong class="blind">사용자 링크</strong><ul class="gnb_lst" id="gnb_lst" style="display: block;"><li class="gnb_login_li" id="gnb_login_layer" style="display: none;"><a class="gnb_btn_login" href="https://nid.naver.com/nidlogin.login" id="gnb_login_button"><span class="gnb_bg"></span><span class="gnb_bdr"></span><span class="gnb_txt">로그인</span></a></li><li class="gnb_my_li" id="gnb_my_layer" style="display: inline-block;"><div class="gnb_my_namebox" id="gnb_my_namebox" style="background-image: url(&quot;https://ssl.pstatic.net/static/common/gnb/2014/ico_arrow_bl1.gif&quot;);"><a href="javascript:;" class="gnb_my" onclick="gnbUserLayer.clickToggle(); return false;"><img id="gnb_profile_img" src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" width="26" height="26" alt="내 프로필 이미지" style="display: none;"><span id="gnb_profile_filter_mask" class="filter_mask" style="display: none;"></span> <span class="gnb_name" id="gnb_name1">sj리</span><em class="blind">내정보 보기</em><span class="ico_arrow"></span></a><a href="#" class="gnb_emp" id="gnb_emp" style="display: none;">(임직원혜택)</a></div><div class="gnb_my_lyr" id="gnb_my_lyr"><div class="gnb_my_content"><div class="gnb_img_area"><span class="gnb_mask"></span><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" width="80" height="80" alt="프로필 이미지"><a href="https://nid.naver.com/user2/api/naverProfile.nhn?m=checkIdType" class="gnb_change"><span class="blind">프로필 사진 변경</span></a></div><div class="gnb_txt_area"><p class="gnb_account"><span class="gnb_name" id="gnb_name2"><a class="gnb_nick" href="https://nid.naver.com/user2/api/naverProfile.nhn?m=checkIdType">sj리</a>님</span><a class="gnb_btn_login" href="https://nid.naver.com/nidlogin.logout?returl=https://cafe.naver.com/Logout.nhn?alreadyNaverLogout=true" id="gnb_logout_button"><span class="gnb_bg"></span><span class="gnb_bdr"></span><span class="gnb_txt">로그아웃</span></a></p><a href="https://mail.naver.com" class="gnb_mail_address">seoun3313@naver.com</a><ul class="gnb_edit_lst"><li class="gnb_info"><a href="https://nid.naver.com/user2/help/myInfo.nhn?menu=home">내정보</a></li><li class="gnb_secure" id="gnb_secure_lnk"><a href="https://nid.naver.com/user2/help/myInfo.nhn?m=viewSecurity&amp;menu=security">보안설정</a></li></ul><p class="gnb_pay_check" id="gnb_pay_check"><em>N Pay</em><a href="http://pay.naver.com" id="gnb_pay_point"><span>내 페이포인트</span></a></p></div></div><div class="gnb_my_community"><a href="http://blog.naver.com/MyBlog.nhn" class="gnb_blog">내 블로그</a><a href="http://section.cafe.naver.com" class="gnb_cafe">가입한 카페</a><a href="http://pay.naver.com" class="gnb_pay"><span>N Pay</span></a></div><a href="#" class="gnb_my_interface" style="display:none"><span class="blind">환경설정</span></a></div><iframe id="gnb_my_lyr_iframe" title="빈 프레임" class="gnb_pad_lyr" name="padding" width="0" height="0" scrolling="no" frameborder="0" style="top:34px;right:-4px;width:320px;height:174px;display:none;opacity:0;-ms-filter:alpha(opacity=0)"></iframe></li><li class="gnb_notice_li" id="gnb_notice_layer" style="display:none"><a href="javascript:;" class="gnb_notice" onclick="gnbNaverMeLayer.clickToggle(); return false;"><span class="blind">알림</span><span class="gnb_icon"></span><em class="gnb_ico_num" id="gnb_me_menu" style="display: block;"><span class="gnb_ico_new"><span class="gnb_count" id="gnb_me_count" style="display: inline-block;">4</span></span></em><span class="ico_arrow"></span></a><div class="gnb_notice_lyr" id="gnb_notice_lyr"><div class="svc_noti svc_panel"><div class="svc_scroll"><div class="svc_head"><strong class="gnb_tit">전체 알림</strong><div class="task_right"><button onclick="gnbNaverMeLayer.deleteReadList(this, event);" id="gnb_btn_read_noti_del">읽은 알림 삭제</button><button onclick="gnbNaverMeLayer.showDeleteAlert();" id="gnb_btn_all_noti_del">모두 삭제</button></div></div><div class="svc_body" id="gnb_naverme_layer"></div></div><div class="gnb_ly_alert" id="gnb_ly_alert" style="display: none;"><p class="gnb_msg"><strong>알림을 모두 삭제하시겠습니까?</strong></p><div class="gnb_btns"><button id="ly_alert_confirm" onclick="gnbNaverMeLayer.deleteAllList(this, event);">확인</button><button onclick="gnbNaverMeLayer.hideDeleteAlert();">취소</button></div><button class="gnb_btn_close" onclick="gnbNaverMeLayer.hideDeleteAlert();"><i>레이어 닫기</i></button></div><a href="https://noti.naver.com/index.nhn" class="gnb_notice_all">내 알림 전체보기</a></div></div><iframe id="gnb_notice_lyr_iframe" title="빈 프레임" class="gnb_pad_lyr" name="padding" width="0" height="0" scrolling="no" frameborder="0" style="top:34px;right:-4px;width:299px;height:332px;display:none;opacity:0;-ms-filter:alpha(opacity=0)"></iframe></li><li class="mail_li" id="gnb_mail_layer" style="display:none"><a href="https://mail.naver.com" class="gnb_mail"><span class="blind">메일</span><span class="gnb_icon"></span><em class="gnb_ico_num" id="gnb_mail_menu" style="display: block;"><span class="gnb_ico_new"><span class="gnb_count" id="gnb_mail_count" style="display: inline-block;">99<span class="plus">+</span></span></span></em></a></li><li class="gnb_service_li" id="gnb_service_layer" style="display: inline-block;"><a href="javascript:;" class="gnb_service" onclick="gnbMoreLayer.clickToggle(); return false;"><span class="blind">서비스 더보기</span><span class="gnb_icon"></span><span class="ico_arrow"></span></a><div class="gnb_service_lyr" id="gnb_service_lyr"><div class="gnb_favorite_search" id="gnb_favorite_search"><div class="gnb_favorite_area"><div class="gnb_favorite_lstwrp"><div class="gnb_first_visit" style="display:none"><span class="blind">나만의 즐겨찾기를 추가해 보세요!</span><a href="#" class="gnb_close"><span class="blind">닫기</span></a></div><strong class="blind">즐겨찾는 서비스</strong><ul class="gnb_favorite_lst" id="gnb_favorite_lst"><li class="gnb_add"><a href="#"><span class="ic_add"></span>추가</a></li><li class="gnb_add"><a href="#"><span class="ic_add"></span>추가</a></li><li class="gnb_add"><a href="#"><span class="ic_add"></span>추가</a></li><li class="gnb_add"><a href="#"><span class="ic_add"></span>추가</a></li></ul><a href="#" class="gnb_my_interface" onclick="gnbMoreLayer.clickToggleWhole(); return false;"><span class="blind">즐겨찾기 설정</span></a></div></div><div class="gnb_search_area"><div class="gnb_search_box" onmouseover="gnb_search.mouseOver(this);" onmouseout="gnb_search.mouseOut(this);"><input id="gnb_svc_search_input" type="text" title="서비스 검색" value="더 많은 서비스를 간편하게 시작하세요!" onfocus="gnb_search.clearInput(this);" onblur="gnb_search.resetInput(this);" onkeydown="gnb_search.keyDown(event);" onkeyup="gnb_search.keyUp(event);"><a href="#" class="gnb_del_txt" id="gnb_del_txt" style="display:none"><span class="blind">삭제</span></a><div class="gnb_pop_input" id="gnb_pop_input" tabindex="0" onfocus="gnb_search.searchPopOnMouse = true; return false;" onfocusout="gnb_search.searchPopOnMouse = false; return false;" onmouseover="gnb_search.searchPopOnMouse = true; return false;" onmouseout="gnb_search.searchPopOnMouse = false; return false;" style="display:none"><ul class="gnb_pop_lst"></ul></div></div><div id="gnb_search_lstwrp" class="gnb_search_lstwrp"><ul class="gnb_search_lst gnb_first"><li class="gnb_first"><a href="http://cafe.naver.com/">카페</a></li><li><a href="http://news.naver.com/">뉴스</a></li><li><a href="http://map.naver.com/">지도</a></li><li><a href="http://sports.news.naver.com/">스포츠</a></li><li><a href="http://game.naver.com/">게임</a></li></ul><ul class="gnb_search_lst"><li class="gnb_first"><a href="http://section.blog.naver.com/">블로그</a></li><li><a href="http://post.naver.com/main.nhn">포스트</a></li><li><a href="http://dic.naver.com/">사전</a></li><li><a href="http://kin.naver.com/">지식iN</a></li><li><a href="http://weather.naver.com/">날씨</a></li></ul><ul class="gnb_search_lst"><li class="gnb_first"><a href="https://mail.naver.com/">메일</a></li><li><a href="http://stock.naver.com/">증권</a></li><li><a href="http://land.naver.com/">부동산</a></li><li><a href="https://vibe.naver.com/today/">VIBE</a></li><li><a href="http://book.naver.com">책</a></li></ul><ul class="gnb_search_lst"><li class="gnb_first"><a href="http://shopping.naver.com/">쇼핑</a></li><li><a href="http://comic.naver.com/">웹툰</a></li><li><a href="http://movie.naver.com/">영화</a></li><li><a href="http://cloud.naver.com/">클라우드</a></li><li><a href="http://auto.naver.com/">자동차</a></li></ul></div></div><div class="gnb_banner"><a href="https://campaign.naver.com/npay/rediret/index.nhn" class="gnb_service_event"><img id="gnb_promo" alt="네이버 페이 첫 계좌등록 시 1천원 적립!" width="265" height="47" src="https://ssl.pstatic.net/static/common/gnb/banner/promo_npay_1905.png"></a></div><div class="gnb_linkwrp"><a href="http://www.naver.com/more.html" class="gnb_service_all" id="gnb_service_all">전체 서비스 보기</a></div></div><div class="gnb_svc_more" id="gnb_svc_more" style=""><strong class="blind">네이버 주요 서비스</strong><div class="gnb_bg_top"></div><div class="gnb_svc_hd" id="gnb_svc_hd" tabindex="0"><strong class="gnb_svc_tit">바로가기 설정</strong><span class="link"><a href="http://www.naver.com/more.html">전체 서비스 보기</a></span></div><div class="gnb_svc_lstwrp"><div class="gnb_svc_lst1"><ul class="gnb_first"><li><input type="checkbox" id="nsvc_game" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_game">게임</label></li><li><input type="checkbox" id="nsvc_weather" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_weather">날씨</label></li><li><input type="checkbox" id="nsvc_shopping" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_shopping">네이버쇼핑</label></li><li><input type="checkbox" id="nsvc_navercast" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_navercast">네이버캐스트</label></li><li><input type="checkbox" id="nsvc_cloud" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_cloud">네이버클라우드</label></li><li class="gnb_event"><input type="checkbox" id="nsvc_naverpay" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_naverpay">네이버페이<em class="ic_gnb_new">New</em></label></li><li><input type="checkbox" id="nsvc_news" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_news">뉴스</label></li><li><input type="checkbox" id="nsvc_comic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_comic">만화/웹툰</label></li><li><input type="checkbox" id="nsvc_memo" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_memo">메모</label></li><li><input type="checkbox" id="nsvc_mail" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_mail">메일</label></li><li><input type="checkbox" id="nsvc_music" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_music">뮤직</label></li><li><input type="checkbox" id="nsvc_land" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_land">부동산</label></li><li><input type="checkbox" id="nsvc_bookmark" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_bookmark">북마크</label></li></ul><ul class=""><li><input type="checkbox" id="nsvc_blog" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_blog">블로그</label></li><li><input type="checkbox" id="nsvc_dic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_dic">사전</label></li><li><input type="checkbox" id="nsvc_software" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_software">소프트웨어</label></li><li><input type="checkbox" id="nsvc_sports" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_sports">스포츠</label></li><li><input type="checkbox" id="nsvc_ya9" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_ya9">야구9단</label></li><li><input type="checkbox" id="nsvc_movie" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_movie">영화</label></li><li><input type="checkbox" id="nsvc_office" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_office">오피스</label></li><li><input type="checkbox" id="nsvc_novel" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_novel">웹소설</label></li><li><input type="checkbox" id="nsvc_auto" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_auto">자동차</label></li><li><input type="checkbox" id="nsvc_contact" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_contact">주소록</label></li><li><input type="checkbox" id="nsvc_finance" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_finance">증권(금융)</label></li><li><input type="checkbox" id="nsvc_map" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_map">지도</label></li><li><input type="checkbox" id="nsvc_kin" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_kin">지식iN</label></li></ul><ul class=""><li><input type="checkbox" id="nsvc_terms" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_terms">지식백과</label></li><li><input type="checkbox" id="nsvc_book" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_book">책</label></li><li><input type="checkbox" id="nsvc_cafe" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_cafe">카페</label></li><li><input type="checkbox" id="nsvc_calendar" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_calendar">캘린더</label></li><li><input type="checkbox" id="nsvc_photo" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_photo">포토갤러리</label></li><li><input type="checkbox" id="nsvc_nstore" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_nstore">N스토어</label></li><li><input type="checkbox" id="nsvc_navertv" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_navertv">네이버TV</label></li></ul></div><div class="svc_lst2"><div class="svc_spc gnb_first"><strong><a href="http://dic.naver.com/">어학사전</a></strong><ul class=""><li><input type="checkbox" id="nsvc_krdic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_krdic">국어사전</label></li><li><input type="checkbox" id="nsvc_endic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_endic">영어/영영사전</label></li><li><input type="checkbox" id="nsvc_hanja" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_hanja">한자사전</label></li><li><input type="checkbox" id="nsvc_jpdic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_jpdic">일어사전</label></li><li><input type="checkbox" id="nsvc_cndic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_cndic">중국어사전</label></li><li><input type="checkbox" id="nsvc_frdic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_frdic">프랑스어사전</label></li><li><input type="checkbox" id="nsvc_dedic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_dedic">독일어사전</label></li><li><input type="checkbox" id="nsvc_rudic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_rudic">러시아어사전</label></li><li><input type="checkbox" id="nsvc_vndic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_vndic">베트남어사전</label></li><li><input type="checkbox" id="nsvc_spdic" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_spdic">스페인어사전</label></li><li><input type="checkbox" id="nsvc_papago" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_papago">파파고</label></li></ul></div><div class="svc_spc"><strong>인기/신규서비스</strong><ul class=""><li><input type="checkbox" id="nsvc_grafolio" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_grafolio">그라폴리오</label></li><li><input type="checkbox" id="nsvc_post" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_post">포스트</label></li><li><input type="checkbox" id="nsvc_luncherapp" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_luncherapp">도돌런처</label></li><li><input type="checkbox" id="nsvc_band" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_band">밴드</label></li><li><input type="checkbox" id="nsvc_line" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_line">라인</label></li><li class="gnb_event"><input type="checkbox" id="nsvc_vibe" name="selmenu" class="gnb_input_check" value=""> <label for="nsvc_vibe">VIBE<em class="ic_gnb_new">New</em></label></li></ul></div></div></div><div class="svc_btnwrp"><div class="svc_btns"><button class="gnb_save" onclick="if(gnbFavorite.addService()){gnbMoreLayer.clickToggleWhole()} return false;"><strong class="blind">확인</strong></button><button class="gnb_close" onclick="gnbFavorite.cancel(); return false;"><span class="blind">취소</span></button><button class="gnb_return" onclick="gnbFavorite.resetService(); return false;" "=""><span class="blind">초기 설정으로 변경</span></button></div></div><div class="gnb_bg_btm"></div></div></div><iframe id="gnb_service_lyr_iframe" title="빈 프레임" class="gnb_pad_lyr" name="padding" width="0" height="0" scrolling="no" frameborder="0" style="display:none;top:34px;right:297px;width:585px;height:385px;opacity:0;-ms-filter:alpha(opacity=0)"></iframe><iframe id="gnb_svc_more_iframe" title="빈 프레임" class="gnb_pad_lyr" name="padding" width="0" height="0" scrolling="no" frameborder="0" style="display:none;top:34px;right:-4px;width:295px;height:385px;opacity:0;-ms-filter:alpha(opacity=0)"></iframe></li></ul>
+
+    </div>
+    <!--//GNB 템플릿 적용부 -->
+
+    
+    
+    <iframe id="join-cafe-iframe" title="가입카페목록" width="280" frameborder="0" scrolling="no" style="overflow:hidden;display:none;"></iframe>
+</div>
+
+
+<div id="cafeappInstallIntroLayer" style="display:none;position:absolute;border:1px solid #969696;background:#fff;top:25px;left:676px">
+  <div style="width:252px;padding:13px 13px 10px;text-align:center">
+    <p style="font-size:12px;line-height:16px;color:#333"><strong><span style="color:#2cae0c">네이버앱 알림</span>으로 <br>카페앱 설치 경로를 전송했습니다.</strong></p>
+    <p style="padding:4px 0 7px;font-size:11px;line-height:16px;color:#999;letter-spacing:-1px">네이버앱이 최신버전이 아니거나, <br>로그아웃 상태여서 알림을 못 받으셨다면 <br>문자 전송으로 카페앱을 설치하실 수도 있습니다.</p>
+    <div style="padding-top:10px;border-top:1px solid #eeeeec;text-align:center">
+      <a href="#" id="cafeappInstallIntroLayerSmsBtn" style="display:inline-block;overflow:hidden;width:116px;height:23px;margin-right:2px;background:url(https://cafe.pstatic.net/img/section/ly_cafeapp_dnld_140331.png) no-repeat 0 -34px;line-height:100px;vertical-align:top">카페앱 설치 문자 전송</a>
+      <a href="#" id="cafeappInstallIntroLayerCloseBtn" style="display:inline-block;overflow:hidden;width:35px;height:23px;background:url(https://cafe.pstatic.net/img/section/ly_cafeapp_dnld_140331.png) no-repeat 0 -60px;line-height:100px;vertical-align:top">확인</a>
+    </div>
+  </div>
+  <a href="#" id="cafeappInstallIntroLayerCloseXBtn" style="display:inline-block;overflow:hidden;position:absolute;top:0;right:0;width:30px;height:30px;background:url(https://cafe.pstatic.net/img/section/ly_cafeapp_dnld_140331.png) no-repeat -136px -34px;line-height:100px;vertical-align:top" role="button">레이어 닫기</a>
+</div>
+<script type="text/javascript">
+var cafeappInstallIntroLayer = {
+    init : function(pUserLoggedIn) {
+        this.cafeappInstallIntroLayer = $('cafeappInstallIntroLayer');
+        this.cafeappInstallIntroLayerSmsBtn = $('cafeappInstallIntroLayerSmsBtn');
+        this.cafeappInstallIntroLayerCloseBtn = $('cafeappInstallIntroLayerCloseBtn');
+        this.cafeappInstallIntroLayerCloseXBtn = $('cafeappInstallIntroLayerCloseXBtn');
+        this.userloggedIn = pUserLoggedIn;
+        this.bindEvent();
+    },
+    bindEvent : function() {
+        Event.register(this.cafeappInstallIntroLayerSmsBtn, 'click', this.popupSms.bindForEvent(this));
+        Event.register(this.cafeappInstallIntroLayerCloseBtn, 'click', this.hideLayer.bindForEvent(this));
+        Event.register(this.cafeappInstallIntroLayerCloseXBtn, 'click', this.hideLayer.bindForEvent(this));
+    },    
+    hideLayer : function(we) {
+        oCL.hide(this.cafeappInstallIntroLayer);
+        we.stop();
+    },    
+    popupSms : function(we) {
+    	openPopupSendURL();
+        oCL.hide(this.cafeappInstallIntroLayer);
+        we.stop();
+    },
+    showLayer : function(event, nTop, nLeft) {
+    	
+    	if(!this.userloggedIn) {
+    		popupLoginPage(document.location);
+    		return;
+    	}
+    	var oAjax = new Ajax('/CafeAppInstallPushAlim.nhn', {method : "POST"});
+    	oCL.show(this.cafeappInstallIntroLayer, event, nTop, nLeft);
+    	if(event != null) {
+    		Event.ready(event).stop();	
+    	}
+    }
+};
+cafeappInstallIntroLayer.init(true);
+</script>
+
+
+
+<script type="text/javascript">
+    var MyNewsActivityList = {
+        init: function () {
+            this.elMyNewsList = document.querySelector(".cc_mynews_list");
+            this.elMyNewsContent = document.querySelector(".cc_mynews_content");
+            this.elMyNewsArea = document.querySelector(".cc_mynews_area");
+            this.elMyNewsAreaNone = document.querySelector(".cc_mynews_none");
+
+            this.elMessageBox = document.querySelector(".cc_layer_alert");
+            this.elMessageBoxButton = document.querySelector(".cc_alert_btn");
+
+            this.elNewsNoticeTooltip = this._fetchNewsNoticeTooltipElement();
+
+            this.processingScrollEvent;
+            this.lastMouseOverElement;
+
+            this.bHasNewsMessage = false;
+
+            /*
+            공지알림의  버튼을 클릭하면 그 카페의 공지알림을 끌 수 있어요.
+            위의 문구는 default로 출력되기 때문에,
+            해당 데이터 외 다른 데이터가 없다면, 데이터가 아무것도 없다는 뜻 이다.
+             */
+            this.NO_MORE_MESSAGE = 1;
+
+            this._attachEvent();
+        },
+
+        _fetchNewsNoticeTooltipElement: function () {
+            return document.querySelector("#_mynews_notice_tooltip");
+        },
+
+        _attachEvent: function () {
+            Event.register(this.elMyNewsContent, "scroll", this._onScroll.bindForEvent(this));
+            Event.register(this.elMyNewsList, "click", this._onClickHideNoticeTooltip.bindForEvent(this, "#_btn_hide_mynews_notice"));
+            Event.register(this.elMyNewsList, "click", this._onClickMynewsOption.bindForEvent(this, ".cc_mynews_option_btn"));
+            Event.register(this.elMyNewsList, "click", this._onClickMessage.bindForEvent(this, ".cc_mynews_item"));
+            Event.register(this.elMyNewsList, "click", this._onClickCafeNoticeOff.bindForEvent(this, ".cc_mynews_option_layer"));
+            Event.register(this.elMyNewsList, "click", this._onClickCommentNotiSetting.bindForEvent(this,".cc_mynews_option_layer"));
+            Event.register(this.elMyNewsList, "click", this._onClickRemoveNoti.bindForEvent(this, ".cc_mynews_option_layer"));
+            Event.register(this.elMyNewsList, "click", this._onClickCafeInviteReject.bindForEvent(this, ".cc_mynews_option_layer"));
+
+            Event.register(this.elMyNewsList, "mouseover", this._onMouseLeaveMessage.bindForEvent(this, "li"));
+            Event.register(this.elMyNewsList, "mouseover", this._onMouseEnterMessage.bindForEvent(this, "li"));
+            Event.register(this.elMyNewsList, "mouseleave", this._onMouseLeaveAllMessage.bindForEvent(this, "li"));
+
+            Event.register(this.elMessageBoxButton, "click", this._onClickMessageBoxButton.bindForEvent(this));
+
+        },
+        _onScroll: function(e) {
+            if (!this.processingScrollEvent && this._isScrollBottom(e)) {
+
+                var elMessageList = this.elMyNewsList.querySelectorAll("li");
+                var nLastMessageKey = elMessageList[elMessageList.length - 1].getAttribute("data-messageKey");
+
+                this.requestMyNewsList(nLastMessageKey);
+            }
+        },
+
+        _isScrollBottom: function(e) {
+           return e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight;
+        },
+
+        _onClickHideNoticeTooltip: function(e, selector) {
+            var target = this._findParentBySelector(e.target, selector);
+            if (!target) {
+                return;
+            }
+
+            oMainLocalStorage.setLocalStorage(oMainLocalStorage.PC_HIDE_MYNEWS_TOOLTIP, "Y");
+            this._toggleNewsNoticeTooltip(false);
+        },
+
+        _onClickMynewsOption: function(e, selector) {
+            var target = this._findParentBySelector(e.target, selector);
+            if (!target) {
+                return;
+            }
+
+            e.target.parentElement.querySelector(".cc_mynews_option_layer").style.display="block";
+        },
+
+        _onClickMessage: function(e, selector) {
+            var target = this._findParentBySelector(e.target, selector);
+            if (!target) {
+                return;
+            }
+
+            var sMessageKey = target.parentNode.getAttribute("data-messageKey");
+            var sCategoryId = target.parentNode.getAttribute("data-categoryId");
+            this.requestMyNewsConfirm(sMessageKey, sCategoryId);
+
+            if (target.getAttribute("data-message")) {
+                this._appearMessageBox(target.getAttribute("data-message"));
+            } else {
+                location.href = target.getAttribute("data-url");
+            }
+        },
+
+        _onMouseEnterMessage: function(e, selector) {
+            var target = this._findParentBySelector(e.target, selector);
+            if (!target || this.lastMouseOverElement == target) {
+                return;
+            }
+
+            if (target && target.id == "_btn_hide_mynews_notice") {
+                return;
+            }
+
+            this.lastMouseOverElement = target;
+
+            var btnMynewsOption = target.querySelector(".cc_mynews_option");
+            if (!btnMynewsOption) {
+                return ;
+            }
+            btnMynewsOption.style.display = "block";
+        },
+
+        _onMouseLeaveMessage: function(e, selector) {
+            var target = this._findParentBySelector(e.target, selector);
+            if (!this.lastMouseOverElement || this.lastMouseOverElement == target) {
+                return;
+            }
+
+            var btnMynewsOption = this.lastMouseOverElement.querySelector(".cc_mynews_option");
+            if (!btnMynewsOption) {
+                return ;
+            }
+
+            var btnMynewsOptionLayer = this.lastMouseOverElement.querySelector(".cc_mynews_option_layer");
+            if (!btnMynewsOptionLayer) {
+                return ;
+            }
+
+            btnMynewsOption.style.display = "none";
+            btnMynewsOptionLayer.style.display = "none";
+        },
+
+        _onMouseLeaveAllMessage: function(e, selector) {
+            var target = e.target.querySelector(selector);
+            if (!this.lastMouseOverElement || this.lastMouseOverElement == target) {
+                return;
+            }
+
+            var btnMynewsOption = this.lastMouseOverElement.querySelector(".cc_mynews_option");
+            if (!btnMynewsOption) {
+                return ;
+            }
+
+            var btnMynewsOptionLayer = this.lastMouseOverElement.querySelector(".cc_mynews_option_layer");
+            if (!btnMynewsOptionLayer) {
+                return ;
+            }
+
+            btnMynewsOption.style.display = "none";
+            btnMynewsOptionLayer.style.display = "none";
+            this.lastMouseOverElement = undefined;
+        },
+
+        _onClickCafeNoticeOff: function (e, selector) {
+            var elCafeNotiOffTab = e.target;
+
+            if (!elCafeNotiOffTab || elCafeNotiOffTab.className.indexOf("_noticeAlarmOff") === -1) {
+                return;
+            }
+
+            var elTarget = this._findParentBySelector(elCafeNotiOffTab, selector);
+            if (!elTarget) {
+                return;
+            }
+
+            if (!confirm("이 카페의 공지알림을 끄시겠습니까?\n"
+                + "카페 앱의 개별 카페 > 알림 설정 메뉴에서 다시 켤 수 있습니다.")) {
+                return;
+            }
+
+            var liTarget = this._findParentBySelector(elTarget, "li");
+            if(!liTarget) {
+                return;
+            }
+
+            var nCafeId = liTarget.getAttribute("data-cafeId");
+            if (!nCafeId) {
+                return;
+            }
+
+            this._requestNoticeAlarmOff(nCafeId, liTarget);
+        },
+
+        _onClickCommentNotiSetting: function (e, selector) {
+            var elCommentSettingTab = e.target;
+
+            if (!elCommentSettingTab || elCommentSettingTab.className.indexOf("_commentNotiSetting") === -1) {
+                return;
+            }
+
+            var elTarget = this._findParentBySelector(elCommentSettingTab, selector);
+            if (!elTarget) {
+                return;
+            }
+
+            var liTarget = this._findParentBySelector(elTarget, "li");
+            if(!liTarget) {
+                return;
+            }
+
+            var nCafeId = liTarget.getAttribute("data-cafeId");
+            var sCafeName = liTarget.getAttribute("data-cafeName");
+            if (!nCafeId || !sCafeName) {
+                return;
+            }
+
+            this._requestCommentSettingInfo(nCafeId);
+
+            var elMyNewsCommentSettingCafeName = document.querySelector("#myNewsCommentSettingCafeName");
+            if (!elMyNewsCommentSettingCafeName) {
+                return;
+            }
+            elMyNewsCommentSettingCafeName.innerText = sCafeName;
+
+            var elMyNewsCommentSettingLayer = document.querySelector("#myNewsCommentSettingLayer");
+            if (!elMyNewsCommentSettingLayer) {
+                return;
+            }
+
+            elMyNewsCommentSettingLayer.setAttribute("data-cafeId", nCafeId);
+
+            elMyNewsCommentSettingLayer.style.display = "block";
+        },
+
+        _requestCommentSettingInfo: function (nCafeId) {
+            var sUrl = "/CommentActivityConfig.nhn";
+            var sQueryString = "?cafeId=" + nCafeId;
+
+            var ajax = new Ajax(sUrl + sQueryString, {
+                method: 'POST',
+                onLoad: function (res) {
+                    if (typeof(JSON) == "object" && typeof(JSON.parse) == "function") {
+                        var jsonDoc = JSON.parse(res.responseText);
+                    }
+                    if (jsonDoc.message.status != 200) {
+                        return;
+                    }
+
+                    var bShowAllCmtOption = false;
+                    var sCurrentCommentActivityType = jsonDoc.message.result.commentActivity;
+                    var aEnableCommentActivityConfigList = jsonDoc.message.result.enableCommentActivityConfigList;
+
+
+                    document.querySelector("#" + sCurrentCommentActivityType).checked = true;
+                    document.querySelector("#currentSettingOption").value = sCurrentCommentActivityType;
+
+                    for (var i = 0, len = aEnableCommentActivityConfigList.length; i < len; i++) {
+                        if (aEnableCommentActivityConfigList[i].value.indexOf("ALL") !== -1) {
+                            bShowAllCmtOption = true;
+                        }
+                    }
+
+                    document.querySelector("#cmtSettingAll").style.display = bShowAllCmtOption ? "block" : "none";
+                }
+            });
+        },
+        _onClickRemoveNoti: function (e, selector) {
+            var elCommentSettingTab = e.target;
+
+            if (!elCommentSettingTab || elCommentSettingTab.className.indexOf("_removeNoti") === -1) {
+                return;
+            }
+
+            var elTarget = this._findParentBySelector(elCommentSettingTab, selector);
+            if (!elTarget) {
+                return;
+            }
+
+            var liTarget = this._findParentBySelector(elTarget, "li");
+            if(!liTarget) {
+                return;
+            }
+
+            var sMessageKey = liTarget.getAttribute("data-messageKey");
+            var sCategoryId = liTarget.getAttribute("data-categoryId");
+
+            this._requestNotiRemove(sMessageKey, sCategoryId, liTarget);
+        },
+        _onClickCafeInviteReject: function (e, selector) {
+            var elCafeInviteReject = e.target;
+
+            if (!elCafeInviteReject || elCafeInviteReject.className.indexOf("_inviteReject") === -1) {
+                return;
+            }
+
+            if (!confirm("초대를 거절하시겠습니까?\n" +
+                    "이 카페 초대는 다시 받을 수 없습니다")) {
+                return;
+            }
+
+            var elTarget = this._findParentBySelector(elCafeInviteReject, selector);
+            if (!elTarget) {
+                return;
+            }
+
+            var liTarget = this._findParentBySelector(elTarget, "li");
+            if(!liTarget) {
+                return;
+            }
+
+            var nCafeId = liTarget.getAttribute("data-cafeId");
+            var sMessageKey = liTarget.getAttribute("data-messageKey");
+
+            this._requestCafeInviteReject(nCafeId, sMessageKey, liTarget);
+
+
+        },
+        _requestNoticeAlarmOff: function (nCafeId, liTarget) {
+            var sUrl = "/MyNewsActivityNoticeAlarmOff.nhn";
+            var sQueryString = "?cafeId=" + nCafeId;
+
+            var ajax = new Ajax(sUrl + sQueryString, {
+                method: 'GET',
+                onLoad: function (res) {
+                    if (typeof(JSON) == "object" && typeof(JSON.parse) == "function") {
+                        var jsonDoc = JSON.parse(res.responseText);
+                    }
+
+                    if (jsonDoc.message.status == 200) {
+                        MyNewsActivityList.elMyNewsList.removeChild(liTarget);
+                        MyNewsActivityList._renderMynewsListLayer();
+                    }
+
+                }
+            });
+        },
+        _requestNotiRemove: function (sMessageKey, sCategoryId, liTarget) {
+            var sUrl = "/MyNewsMessageRemove.nhn";
+            var sQueryString = "?messageKey=" + sMessageKey + "&categoryId=" + sCategoryId;
+
+            var ajax = new Ajax(sUrl + sQueryString, {
+                method: 'GET',
+                onLoad: function (res) {
+                    if (typeof(JSON) == "object" && typeof(JSON.parse) == "function") {
+                        var jsonDoc = JSON.parse(res.responseText);
+                    }
+
+                    if (jsonDoc.message.status == 200) {
+                        MyNewsActivityList.elMyNewsList.removeChild(liTarget);
+                        MyNewsActivityList._renderMynewsListLayer();
+                    }
+
+                }
+            });
+        },
+        _requestCafeInviteReject: function (nCafeId, sMessageKey, liTarget) {
+            var sUrl = "/MyNewsInvitationReject.nhn";
+            var sQueryString = "?cafeId=" + nCafeId + "&messageKey=" + sMessageKey;
+
+            var ajax = new Ajax(sUrl + sQueryString, {
+                method: 'GET',
+                onLoad: function (res) {
+                    if (typeof(JSON) == "object" && typeof(JSON.parse) == "function") {
+                        var jsonDoc = JSON.parse(res.responseText);
+                    }
+
+                    if (jsonDoc.message.status == 200) {
+                        MyNewsActivityList.elMyNewsList.removeChild(liTarget);
+                        MyNewsActivityList._renderMynewsListLayer();
+                    }
+
+                }
+            });
+        },
+
+        _onClickMessageBoxButton: function () {
+            this.elMessageBox.style.display = "none";
+        },
+
+        _findParentBySelector: function(el, selector) {
+            var existSelector = false;
+            var selectorType = selector.indexOf(".") == 0 ? "class" : selector.indexOf("#") == 0 ? "id" : "tag";
+            var selectorName = selectorType === "tag" ? selector : selector.substring(1, selector.length);
+
+            while (el !== this && !existSelector) {
+                if (!el.tagName) {
+                    return ;
+                }
+
+                if (selectorType == "class") {
+                    if (el.className.indexOf(selectorName) != -1) {
+                        existSelector = true;
+                        continue;
+                    }
+                } else if (selectorType == "id") {
+                    if (el.id == selectorName) {
+                        existSelector = true;
+                        continue;
+                    }
+
+                } else {
+                    if (el.tagName.toLowerCase() === selector) {
+                        existSelector = true;
+                        continue;
+                    }
+                }
+                el = el.parentNode;
+            }
+
+            return el;
+        },
+
+        _appearMessageBox: function (message) {
+            this.elMessageBox.querySelector(".txt").innerHTML = message;
+            this.elMessageBox.style.display = "block";
+        },
+
+        _renderMynewsListLayer: function () {
+            this.bHasNewsMessage = MyNewsActivityList.elMyNewsList.childElementCount === this.NO_MORE_MESSAGE ? false : true;
+            if (this.bHasNewsMessage) {
+                this.elMyNewsArea.style.display = "block";
+                this.elMyNewsAreaNone.style.display = "none";
+                return;
+            }
+            this.elMyNewsArea.style.display = "none";
+            this.elMyNewsAreaNone.style.display = "block";
+        },
+
+        _appendMynewsList: function (sStringifyElement) {
+            if (!sStringifyElement) return;
+            this.elMyNewsList.insertAdjacentHTML("beforeend", sStringifyElement);
+            this.elNewsNoticeTooltip = this._fetchNewsNoticeTooltipElement();
+        },
+
+        _sendMyNewsListOpenBA: function () {
+            oBAStatSender.send([
+                {
+                    eventType : cafe.BAStatEventType.PC_808_270
+                }
+            ]);
+            var list = $$(".cc_mynews_area a");
+            for (var i = 0; i < list.length; i++) {
+                list[i].addEventListener('click', this.sendClickNewsActivity);
+            }
+        },
+
+        _toggleNewsNoticeTooltip: function(bVisible) {
+            bVisible ? this.elNewsNoticeTooltip.style.display = "block" : this.elNewsNoticeTooltip.style.display = "none";
+        },
+
+        showNoticeIfAllowed : function() {
+            if (oMainLocalStorage.getLocalStorage(oMainLocalStorage.PC_HIDE_MYNEWS_TOOLTIP) == 'Y') {
+                this._toggleNewsNoticeTooltip(false);
+                return;
+            }
+
+            this._toggleNewsNoticeTooltip(true);
+        },
+
+        requestMyNewsList: function(messageKey) {
+            var sUrl = "/MyNewsActivityListAjax.nhn";
+            var sQueryString = messageKey ? "?messageKey=" + messageKey : "";
+
+            this.processingScrollEvent = true;
+            var that = this;
+
+            var ajax = new Ajax(sUrl + sQueryString, {
+                method: 'GET',
+                onLoad: function (res) {
+                    if (!res || res.status != '200' || !res.responseText) {
+                        return;
+                    }
+
+                    if (!res.responseText.trim() && !that.bHasNewsMessage) {
+                        that._toggleNewsNoticeTooltip.call(that, false);
+                    } else {
+                        that._appendMynewsList(res.responseText);
+                        that._sendMyNewsListOpenBA();
+                        that.processingScrollEvent = false;
+                    }
+
+                    // 최초 요청 시 display 값을 설정
+                    var bFirstRequest = !messageKey;
+                    if (bFirstRequest) {
+                        that._renderMynewsListLayer();
+                    }
+
+                }
+            });
+        },
+
+        requestMyNewsConfirm: function (sMessageKey, sCategoryId) {
+            var sUrl = "/MyNewsActivityConfirmAjax.nhn";
+            var sQueryString = "?messageKey=" + sMessageKey + "&categoryId=" + sCategoryId;
+
+            var ajax = new Ajax(sUrl + sQueryString, {
+                method: 'GET',
+                onLoad: function (res) {
+                    if (typeof(JSON) == "object" && typeof(JSON.parse) == "function") {
+                        var jsonDoc = JSON.parse(res.responseText);
+                    }
+
+                    if (jsonDoc.message.status == 200) {
+                        // success
+                    }
+
+                }
+            });
+        },
+
+        removeAll: function () {
+            if (!this.bHasNewsMessage) {
+                return;
+            }
+
+	        this.elMyNewsList.textContent = '';
+            this.elMyNewsList.appendChild(this.elNewsNoticeTooltip);
+
+        },
+
+		sendClickNewsActivity: function (e) {
+			oBAStatSender.send([
+				{
+					eventType : cafe.BAStatEventType.PC_809_270
+				}
+			]);
+		}
+    };
+
+    MyNewsActivityList.init();
+</script>
+
+
+
+<script type="text/javascript">
+    
+    var nsc="cafe"; //서비스에서 사용하는 nclick service code.
+    var gnb_service="cafe"; //서비스 명 .naver.com 이하 도메인을 기술 ex) sports.news.naver.com => sports.news
+    var gnb_logout="https://cafe.naver.com/Logout.nhn?alreadyNaverLogout=true"; //GNB에서 로그아웃 후 redirect 될 URL
+    var gnb_template="gnb_euckr"; //사용하고 있는 템플릿 명
+    var gnb_brightness=1; // 0: 어두운색 아이콘, 1: 어두운색 아이콘 + 투명도, 2: 밝은색 아이콘 + 투명도, 3: 밝은색 아이콘(pwe 사용권장)
+    var gnb_item_hide_option=28; //0(default) : 모두 표시, 1 : 로그인버튼 숨기기, 2 : user 레이어 숨기기, 4: Naver Me 영역 숨기기, 8 : 메일알림영역 숨기기, 16 : 프로필 이미지 숨기기, 32 : 임직원혜택 보이기(숨길 영역의 값을 bit sum 하여 적용)
+    
+</script>
+
+
+
+<script type="text/javascript" src="/static/js/mycafe/common/bastat/ScriptBAStatLog-1558431787000-105576.js" charset="UTF-8"></script>
+
+
+<script type="text/javascript">
+
+    function getReferrerForBA() {
+        if (typeof(window.top.articleReadBalog) === "undefined") {
+            window.top.articleReadBalog = {
+                useIframeReferrer: false
+            };
+        }
+        if (!window.top.articleReadBalog.useIframeReferrer && !!window.top.document.referrer) {
+            window.top.articleReadBalog.useIframeReferrer = true;
+            return window.top.document.referrer;
+        }
+        return document.referrer;
+    }
+
+    var oBAStatSender = new cafe.BAStatSender({
+        oClient : {
+            service_id: 'cafe',
+            user_key: 'seoun3313',
+            os_name: '__UNKNOWN__',
+            os_ver: '-1',
+            app_ver: '-1',
+            country: 'XX',
+            language: 'xx',
+            device_id: '5KOAKK567CYFW',
+            device_model: '__UNKNOWN__',
+            product: 'web'
+        },
+        sEnv: 'real'
+    });
+</script>
+<script type="text/javascript">
+    var ToggleCafeGNBLayer = {
+        init : function() {
+            this.joinCafeModel = {
+                button : $("button_join_cafe"),
+                layer : $("join-cafe-iframe"),
+                toggle : function (bVisible) {
+                    bVisible ? this.hide() : this._show();
+                },
+                _show : function () {
+                    this.layer.src = "/MyCafeListGNBView.nhn";
+                    Element.show(this.layer);
+                    this.button.className = this.button.className.replace("off","on")
+
+					oBAStatSender.send([
+						{
+							eventType : cafe.BAStatEventType.PC_827_167
+						}
+					]);
+                },
+                hide : function () {
+                    this.layer.src = "";
+                    Element.hide(this.layer);
+                    this.button.className = this.button.className.replace("on","off")
+                }
+            };
+            this.activityModel = {
+                button: $("button_mynews_activity"),
+                layer: $("layer_mynews_activity"),
+                elActivityCount: $("mynews_activity_count_display"),
+                toggle: function (bVisible) {
+                    bVisible ? this.hide() : this._show();
+                },
+                _show: function () {
+                    MyNewsActivityList.showNoticeIfAllowed();
+                    MyNewsActivityList.requestMyNewsList();
+                    Element.show(this.layer);
+                    Element.removeClass(this.button, "off");
+                    Element.addClass(this.button, "on");
+
+                    if (this.elActivityCount) {
+                        Element.hide(this.elActivityCount);
+                    }
+
+					oBAStatSender.send([
+						{
+							eventType : cafe.BAStatEventType.PC_806_167
+						}
+					]);
+                },
+                hide: function () {
+                    MyNewsActivityList.removeAll();
+                    Element.hide(this.layer);
+                    Element.removeClass(this.button, "on");
+                    Element.addClass(this.button, "off");
+                }
+            };
+
+            this.alarmModel = {
+                button: $("button_mynews_alarm"),
+            };
+
+            this.loginModel = {
+                button: null,
+                layer: $("layer_login"),
+                toggle: function (bVisible) {
+                    Element.toggle(this.layer);
+                },
+                hide: function () {
+                    Element.hide(this.layer);
+                }
+            };
+
+            this.elCurrent = null;
+
+            this.elGnbCurrent = { layer : null};
+            this.bClickGnb = false;
+
+            this.attachEvent(true);
+        },
+        attachEvent : function(bInit) {
+            if (bInit) {
+                var oThis = this;
+                Event.register(this.joinCafeModel.button, "click", this.clickArea.bindForEvent(this, this.joinCafeModel));
+                Event.register(this.activityModel.button, "click", this.clickArea.bindForEvent(this, this.activityModel));
+                Event.register(this.alarmModel.button, "click", this.clickAlarmButton.bindForEvent(this));
+
+                Event.register(document, "click", this.hide.bindForEvent(this));
+                for (var gnFitted = 0; gnFitted < 10; gnFitted++) {
+                    if ($('gnb_my_layer') && $('gnb_service_layer')) {
+                        setTimeout(function () {
+                            Event.register($('gnb_my_layer'), "click", oThis.toggleGnbLayer.bindForEvent(oThis));
+                            Event.register($('gnb_service_layer'), "click", oThis.toggleGnbLayer.bindForEvent(oThis));
+                        }, 500);
+                        break;
+                    }
+                }
+                return ;
+            }
+            this.elFrame = $("cafe_main");
+
+            if (this.elFrame) {
+                this.elFrameLocation = this.elFrame && this.elFrame.contentWindow && this.elFrame.contentWindow.location.toString() || "";
+                this.frameEvent(this);
+                this.frameEvent();
+            }
+        },
+        toggleGnbLayer : function(oEvent) {
+            var el = oEvent && (oEvent.target || oEvent.srcElement);
+
+            if( gnbUserLayer && gnbUserLayer.show ) {
+                this.elGnbCurrent = { layer : gnbUserLayer};
+                this.bClickGnb = true;
+            } else if ( gnbMoreLayer && gnbMoreLayer.show ) {
+                this.elGnbCurrent = { layer : gnbMoreLayer};
+                this.bClickGnb = true;
+            } else {
+                this.elGnbCurrent = { layer : null};
+                this.bClickGnb = false;
+            }
+        },
+        frameEvent : function(bDetach) {
+            var elEditor = this.elFrame && this.elFrame.contentWindow.oEditor;
+
+            Event[bDetach ? "unregister" : "register"](this.elFrame.contentWindow.document, "click",this.hide.bindForEvent(this));
+
+            
+            if(elEditor) {
+                Event[bDetach ? "unregister" : "register"](elEditor.getDocument(), "click",this.hide.bindForEvent(this));
+            }
+        },
+        clickArea : function(oEvent, selectedModel) {
+            var el = oEvent.target || oEvent.srcElement || oEvent.element;
+
+            if(!/(a|img)/i.test(el.tagName)) {
+                return;
+            }
+
+            this.loginCheck(selectedModel);
+
+            Event.stop(oEvent);
+
+            this.attachEvent();
+        },
+        loginCheck: function (selectedModel) {
+            new Ajax("/LoginCheck.nhn?m=check", {
+                method: 'GET',
+                onLoad: function (res) {
+                    if (!res || res.status != '200' || !res.responseText) {
+                        return;
+                    }
+                    if (res.responseText == "LOGOUT") {
+                        ToggleCafeGNBLayer.openLoginPopup();
+                    } else {
+						ToggleCafeGNBLayer.toggle({selectedModel: selectedModel});
+					}
+                }
+            });
+        },
+        clickAlarmButton : function(oEvent, selectedModel) {
+			oBAStatSender.send([
+				{
+					eventType : cafe.BAStatEventType.PC_828_167
+				}
+			]);
+
+            location.href = "https://section.cafe.naver.com/cafe-home/feeds";
+        },
+        toggle : function (oEvent) {
+            var bVisible = Element.visible(oEvent.selectedModel.layer);
+            oEvent.selectedModel.toggle(bVisible);
+            this.elCurrent = oEvent.selectedModel;
+        },
+        hide : function(oEvent) {
+            // 내소식 레이어 내부 클릭 시 닫히는 현상 방지
+            if (this.elCurrent && this.elCurrent.layer && oEvent.target) {
+                // 내소식 레이어 내부일 경우
+                if (this.elCurrent.layer.contains(oEvent.target)) {
+                    return;
+                }
+
+                // 내소식 레이어 > 댓글 설정 레이어일 경우
+                var elMyNewsCommentSettingLayer = $("myNewsCommentSettingLayer");
+                if (elMyNewsCommentSettingLayer && elMyNewsCommentSettingLayer.contains(oEvent.target)) {
+                    return ;
+                }
+            }
+
+            if(this.elCurrent && this.elCurrent.layer && this.elCurrent.layer.style && this.elCurrent != oEvent.selectedModel) {
+                this.elCurrent.hide();
+            }
+
+            // 2014년 GNB 레이어 닫기처리
+            if(this.elGnbCurrent.layer && (this.elGnbCurrent.layer.myLayerElement || this.elGnbCurrent.layer.moreLayerElement) && !this.bClickGnb) {
+                gnbAllLayerClose();
+            }
+            this.bClickGnb = false;
+
+            // iframe location이 다른 경우에 클릭 이벤트를 재설정한다.
+            if(this.elFrameLocation && this.elFrameLocation != this.elFrame.contentWindow.location) {
+                this.frameEvent(this);
+                this.elFrameLocation = this.elFrame.contentWindow.location.toString();
+                this.frameEvent();
+            }
+        },
+        openLoginPopup: function () {
+            open_wnd("https://nid.naver.com/nidlogin.login?template=plogin&mode=form&url=https://cafe.naver.com/OpenerRedirect.nhn%3Fopenerurl%3D%252Ftantanms.cafe", "naver_login", 410, 280);
+        }
+    };
+    getGNB();
+    ToggleCafeGNBLayer.init();
+</script>
+
+
+
+
+<script type="text/javascript">
+    
+
+    function openCafeTalk() {
+        true ? accessChat(false) : openLoginPopup();
+
+		oBAStatSender.send([
+			{
+				eventType : cafe.BAStatEventType.PC_858_167
+
+			}
+		]);
+    }
+
+    /**
+     * 채팅홈을 팝업으로 띄운다.
+     *
+     * cafe-info-action, cafe-gnb.jsp 에서 사용.
+     */
+    function openChatHomePopUp(bMyCafeChat) {
+        var sChatUrl = 'https://talk.cafe.naver.com' + (bMyCafeChat? "/cafes/25824422/channels" : "/channels");
+        popupCenter(sChatUrl, 'CafeChatHome', 400, 700);
+    }
+
+    function chatting(bMyCafeChat) {
+		oBAStatSender.send([
+			{
+				eventType : cafe.BAStatEventType.PC_1029_167
+
+			}
+		]);
+        
+            
+            
+                suggestJoin();
+            
+            
+        
+    }
+
+    function accessChat(bMyCafeChat) {
+        var oSslChecker = new Image();
+
+        oSslChecker.addEventListener('load', openChatHomePopUp(bMyCafeChat), true);
+
+        oSslChecker.onerror = function() {
+            alert("채팅에 필요한 인증서를 지원하지 않는 OS입니다.");
+        };
+
+        oSslChecker.src = "https://secure.cafe.naver.com/secure-images/sslcheck/cafe.gif";
+    }
+
+    function openLoginPopup() {
+        open_wnd("https://nid.naver.com/nidlogin.login?template=plogin&mode=form&url=https://cafe.naver.com/OpenerRedirect.nhn%3Fopenerurl%3D%252Ftantanms.cafe", "naver_login", 410, 280);
+    }
+</script>
+			
+		</div>
+		
+<div id="myNewsCommentSettingLayer" class="cc_layer_dimmed _stopDefault" data-cafeid="" style="display: none;">
+    <div class="layer_wrap">
+        <div class="layer_header">
+            <h1 class="title">내소식 댓글알림 설정</h1>
+        </div>
+        <div class="layer_content">
+            <div class="content_title">
+                <strong id="myNewsCommentSettingCafeName" class="name"></strong>
+            </div>
+            <div class="setting_check">
+                <input type="hidden" id="currentSettingOption" value="">
+                <ul class="list">
+                    <li id="cmtSettingAll">
+                        <div class="radio_box type_green">
+                            <input type="radio" id="ALL" name="cmt_alarm" class="blind">
+                            <label for="ALL">
+                                <strong class="txt">모든 댓글알림 받기</strong>
+                                <p class="info">이 카페의 모든 댓글알림을 받습니다.</p>
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="radio_box type_green">
+                            <input type="radio" id="REL" name="cmt_alarm" class="blind">
+                            <label for="REL">
+                                <strong class="txt">참여글의 알림 받기</strong>
+                                <p class="info">내 글, 내 댓글, 내가 댓글 쓴 글에 대한 댓글<br>알림을 받습니다.</p>
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="radio_box type_green">
+                            <input type="radio" id="MY" name="cmt_alarm" class="blind">
+                            <label for="MY">
+                                <strong class="txt">내 글/댓글의 알림 받기</strong>
+                                <p class="info">내 글, 내 댓글에 대한 댓글알림을 받습니다.</p>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn_area">
+                <a href="#" role="button" class="btn _stopDefault" id="newCommentOptionCancel">취소</a>
+                <a href="#" role="button" class="btn point _stopDefault" id="newCommentOptionSave">확인</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var MyNewsCommentSetting = {
+        init: function () {
+            this.elDimmedLayer = document.querySelector(".cc_layer_dimmed");
+            this.elSaveBtn = document.querySelector("#newCommentOptionSave");
+            this.elCancelBtn = document.querySelector("#newCommentOptionCancel");
+
+            this._attachEvent();
+        },
+        _attachEvent: function () {
+            Event.register(this.elSaveBtn, "click", this._onClickNewCommentOptionSave.bindForEvent(this, "#myNewsCommentSettingLayer"));
+            Event.register(this.elCancelBtn, "click", this._onClickNewCommentOptionCancel.bindForEvent(this, "#myNewsCommentSettingLayer"));
+        },
+        _onClickNewCommentOptionSave: function (e, selector) {
+
+            var sCheckedType = document.querySelector("input[name=cmt_alarm]:checked").id;
+            var elTarget = document.querySelector(selector);
+
+            var nCafeId = elTarget.getAttribute("data-cafeId");
+            if (!nCafeId || nCafeId.trim().length <= 0) {
+                return;
+            }
+
+            //설정 변화가 없으면 얼럿을 그냥 닫는다.
+            var sCurrentSetting = document.querySelector("#currentSettingOption").value;
+            if (sCurrentSetting && sCheckedType === sCurrentSetting) {
+                this.elDimmedLayer.style.display = "none";
+                return;
+            }
+
+            this._requestCommentActivityConfig(nCafeId, sCheckedType, this);
+        },
+
+        _requestCommentActivityConfig: function (nCafeId, sCheckedType, self) {
+            var sUrl = "/CommentActivityConfigUpdate.nhn";
+            var sQueryString = "?cafeId=" + nCafeId + "&type=" + sCheckedType;
+
+            var ajax = new Ajax(sUrl + sQueryString, {
+                method: 'GET',
+                onLoad: function (res) {
+                    if (typeof(JSON) == "object" && typeof(JSON.parse) == "function") {
+                        var jsonDoc = JSON.parse(res.responseText);
+                    }
+
+                    if (jsonDoc.message.status != 200) {
+                        return;
+                    }
+                    switch(sCheckedType) {
+                        case "ALL" :
+                            alert("지금부터 모든 댓글알림을 받습니다. \n통합, 상품거래, 간편게시판 외의 게시판에서는\n설정에 관계없이 내 글/댓글의 알림만 제공됩니다.");
+                            break;
+                        case "REL" :
+                            alert("지금부터 참여글의 댓글알림을 받습니다. \n통합, 상품거래, 간편게시판 외의 게시판에서는\n설정에 관계없이 내 글/댓글의 알림만 제공됩니다.");
+                            break;
+                        case "MY" :
+                            alert("지금부터 내 글/댓글의 알림을 받습니다.\n기존에 받은 알림은 목록에 유지됩니다.");
+                            break;
+
+                    }
+                    self.elDimmedLayer.style.display = "none";
+                }
+            });
+        },
+        _onClickNewCommentOptionCancel: function () {
+            this.elDimmedLayer.style.display = "none";
+        }
+    };
+    MyNewsCommentSetting.init();
+</script>
+
+		
+		
+			
+				
+				
+
+				
+				
+					
+						
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+
+
+
+// 탑스킨 사이즈 제한
+function resizeTopSkin(img) {
+    if(!img || img.src.indexOf(".png")>-1 ||img.src.indexOf(".PNG")>-1) return;
+    if(img.height>300) img.height="300";
+    if(img.width>956) img.width="956";
+}
+
+
+
+function updateMoveMenu() {
+	if (typeof oMenuMoveUpdater == "undefined") {
+		return;
+	}
+	
+	oMenuMoveUpdater.update(null);
+}
+</script>
+
+
+	
+	
+
+	
+	
+  <div id="front-img">
+  	
+  		
+		
+  		
+		
+  		
+  			<div id="front-cafe" style="cursor:hand;cursor:pointer;background-image:none;width:956px">
+  				<a name="myCafeUrlLink" onclick="updateMoveMenu()" href="/MyCafeIntro.nhn?clubid=25824422" target="cafe_main">
+					<img src="https://cafefiles.pstatic.net/MjAxOTAxMDRfNTEg/MDAxNTQ2NTk1OTg1OTEw.jNspQ0vCb8sbPh4GiYDgAsrQTsncaUey6zHvb1KP01wg.EpCKoaOPZNkK1bqjswufkK66C17qDUvBQPgTfNDAldkg.JPEG.soshida/%EC%B9%B4%ED%8E%98%EB%8C%80%EB%AC%B8%EB%B0%B0%EB%84%88%28%EC%95%8C%EA%B8%B0%EC%89%AC%EC%9A%B4%EC%A0%95%EC%B1%85%EC%9E%90%EA%B8%88%29.jpg" alt="[알기쉬운 정책자금] 정책자금,기업부설연구소, 벤처인증" onload="resizeTopSkin(this)">
+  				</a>
+  			</div>
+  		
+  	
+  </div>
+
+					
+				
+			
+		
+			
+				
+				
+
+				
+				
+					
+						
+
+
+
+
+
+<div id="info-search" class="blank-space">
+	
+		
+		
+			
+		
+	
+
+</div>
+					
+				
+			
+		
+		
+		
+		<div id="content-area">
+			
+			<div id="group-area" class=" fl">
+
+				
+				
+
+
+
+
+
+
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/click/clickcr-1545208501000-6201.js"></script>
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/favorite/favorite_cafe-1545208501000-1385.js"></script>
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/lcslog-1545208501000-26709.js"></script>
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/tablet/Tablet-1545208501000-4233.js"></script>
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/tablet/TabletHandler-1545208501000-2403.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+var nsc = "cafe.mycafe";
+//]]>
+</script>
+
+<div class="cafe-info-action" id="cafe-info-action">
+	
+	
+		
+		
+			
+			<div id="cafe-info-data">
+				<ul class="info-action-tab">
+					<li class="tit-info-on">
+						<p class="gm-tcol-t">카페정보</p>
+					</li>
+					<li class="tit-action">
+						<p><a href="#" class="_rosRestrict" onclick="showMyAction();clickcr(this, 'cia.my', '', '', event);return false;">나의활동</a></p>
+					</li>
+					<li class="tit-bookmark">
+						
+						
+						
+						<a class="_rosRestrict" href="#" title="즐겨찾는 카페 등록" onclick="setupFavoriteCafe(true, false, 25824422);clickcr(this, 'cia.fav', '', '', event);return false;"><img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="27" height="28" alt="즐겨찾는 카페 등록" class="btn-bookmark-off" id="favoriteCafeInCafeInfo"></a>
+					</li>
+				</ul>
+				<div class="box-g">
+					<h4 class="d-none">카페정보</h4>
+					<div class="ia-info-data" id="ia-info-data">
+						<ul>
+							<li class="gm-tcol-c">
+								<div class="ball"><img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="27" height="13" class="ico-manager" alt="매니저"></div>
+								<a href="/tantanms/member/nhy2581/article" target="_blank" class="id mlink gm-tcol-c" onclick="clickcr(this, 'cia*i.manager', '', '', event);">
+									<div class="ellipsis gm-tcol-c"><div class="ellipsis">정책자금컨설턴트</div></div>
+								</a>
+							</li>
+							<li class="gm-tcol-c">
+								<div class="thm"><a href="/CafeHistoryView.nhn?clubid=25824422" class="gm-tcol-c" target="cafe_main" onclick="clickcr(this, 'cia*i.history', '', '', event); targetCleaner(this);">since 2013.02.25.</a></div>
+								<div class="info-view"><a href="#" onclick="cafeProfile();clickcr(this, 'cia*i.intro', '', '', event);return false;" class="u gm-tcol-c">카페소개</a></div>
+							</li>
+							
+						</ul>
+					</div>
+					
+						
+					
+						
+
+
+
+
+<script type="text/javascript">
+checkHideRankingNotice();
+
+function checkHideRankingNotice(){
+	var rankCookie = document.cookie;
+	var startPoint = rankCookie.indexOf("rankingHidden=");
+	if(startPoint != -1){
+		var start = startPoint + 14;
+		var end = rankCookie.indexOf(";", start);
+		if(end == -1) end = rankCookie.length;
+		var value = rankCookie.substring(start, end);
+		value = decodeURIComponent(value);
+		if(value == '25824422') {
+			hideRankingNotice();
+		}
+	}
+}
+
+function hideRankingNotice() {
+	Element.hide("rankingNotice");
+	setHideCookie();
+}
+
+function setHideCookie(){
+	var expireDate = new Date();
+	expireDate.setDate(expireDate.getDate()+2);
+	document.cookie = "rankingHidden=25824422; expires="+expireDate.toGMTString();
+}
+	
+function goRankingNoticeDetail() { 
+	window.open("https://section.cafe.naver.com/cafe-home/cafes/rankings-introduction");
+}
+</script>
+					
+					<div class="ia-info-data2">
+						<ul>
+							
+								
+								
+								
+									<li class="level-info border-sub">
+										<a href="#" class="gm-tcol-c" onclick="cafeRanking();clickcr(this, 'cia*i.grade', '', '', event);return false;">
+											<strong class="d-none">카페등급</strong>
+											<span class="ico_rank rank18"></span><br><em>가지3단계</em>
+										</a>
+									</li>
+								
+							
+							<li class="mem-cnt-info" style="cursor:pointer;">
+								<strong class="d-none">카페멤버수</strong>
+								
+									
+										<a href="#" onclick="$('hiddenOpenMemberInfoLayer').style.display = '';" class="gm-tcol-c"><span class="ico"></span><br><em>1,818<img src="https://cafe.pstatic.net/cafe4/cafe/cafeinfo/ico_lock.gif" width="9" height="11" alt="비공개" class="ico_lock2"></em></a>
+									
+									
+								
+									
+								<div class="ly_info_dsc" style="font-weight:normal;top:31px;left:5px;display:none;" id="hiddenCafeApplyLayer">
+									<div class="cont cont_v1" style="width:60px">
+										<p><a href="/ManageJoinApplication.nhn?search.clubid=25824422">가입대기 <span>0</span></a></p>
+										<span class="tail" style="left:31px"></span>
+									</div>
+								</div>
+							</li>
+						</ul>
+							
+						<div class="ly_info_dsc" style="top:31px;left:5px;display:none;" id="hiddenCafeDescLayer">
+							<div class="cont">
+								<p>초대를 통해서만<br>가입할 수 있는 비공개카페</p>
+								<span class="tail" style="left:31px"></span>
+							</div>
+						</div>
+							
+						<div class="ly_info_dsc" style="top:33px;right:29px;display:none;" id="hiddenOpenMemberInfoLayer">
+							<div class="cont cont_v2">
+								<p>멤버목록 비공개 카페</p>
+								<span class="tail" style="right:3px"></span>
+							</div>
+							<a href="#" onclick="$('hiddenOpenMemberInfoLayer').style.display = 'none';" class="clse" role="button">닫기</a>
+						</div>
+					</div>
+						
+					<div class="ia-info-data3" id="cafePopularityLog">
+
+
+
+
+
+<ul class="gm-tcol-c">
+<li class="info">
+	<span class="tit"><span class="ico_bkmk"></span><strong class="gm-tcol-c"><a href="https://section.cafe.naver.com/notice/read/1000003528/10000000000023814955" class="gm-tcol-c" target="_blank">즐겨찾는 멤버</a></strong></span>
+	<em><a href="https://section.cafe.naver.com/notice/read/1000003528/10000000000023814955" class="gm-tcol-c" target="_blank">517</a><span class="gm-tcol-c">명</span></em>
+</li>
+<li class="info2">
+	<span class="tit"><span class="ico_bkmk2"></span><strong class="gm-tcol-c"><a href="https://section.cafe.naver.com/notice/read/1000003528/10000000000023814955" class="gm-tcol-c" target="_blank">게시판 구독수</a></strong></span>
+	<em><a href="https://section.cafe.naver.com/notice/read/1000003528/10000000000023814955" class="gm-tcol-c" target="_blank">0</a><span class="gm-tcol-c">회</span></em>
+</li>
+<li class="info3" id="cafePopularityLog_info3" onmouseover="showAppCafeDescView(true);" onmouseout="showAppCafeDescView(false);">
+	<span class="tit"><span class="ico_mbl"></span><strong class="gm-tcol-c">우리카페앱 수</strong></span>
+	<em>2<span class="gm-tcol-c">회</span></em>
+	<!-- [D] 우리카페앱 수 안내 레이어 --> 
+	<div class="ly_info_dsc" style="top:-60px;right:-3px;display:none;" id="appCafeInstallCountDescLayer">
+		<div class="cont cont_v3"> 
+			<p>모바일에서 우리카페를<br> 바탕화면에 추가한 수 <br> <a href="https://help.naver.com/support/alias/cafe/cafe21.naver" class="more" target="_blank">자세히 보기</a></p>
+			<span class="tail2"></span> 
+		</div> 
+	</div> 
+</li>
+</ul></div>
+					<div class="ia-info-btn">
+						<ul class="ia-info-list">
+							<li>
+								<a href="#" onclick="inviteMember();clickcr(this, 'cia*i.invite', '', '', event);return false;" class="gm-tcol-c _rosRestrict">초대</a>
+							</li>
+							<li>
+								<a href="#" onclick="chatting(true);clickcr(this, 'cia*i.chat', '', '', event);return false;" class="gm-tcol-c _tabletRestrict(채팅)" target="_blank">카페 채팅</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="box_g_b"></div>
+				<div class="cafe-write-btn">
+					
+					
+						
+						
+							<a href="#" class="_rosRestrict" onclick="joinCafe();return false;"><img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="171" height="34" alt="카페 가입하기" class="btn-join"></a>
+						
+					
+				</div>
+			</div>
+		
+	
+	
+
+	
+    
+        
+        
+			<div id="member-action-data" style="display:none">
+				
+					<ul class="info-action-tab" role="tablist">
+						<li class="tit-info" role="presentation">
+							<p role="tab"><a href="#" onclick="showCafeInfo();clickcr(this, 'cia.cafe', '', '', event);return false;">카페정보</a></p>
+						</li>
+						<li class="tit-action-on" role="presentation">
+							<p class="gm-tcol-t" role="tab">나의활동</p>
+						</li>
+						<li class="tit-bookmark">
+							
+							
+							
+							<a href="#" title="즐겨찾는 카페 등록" onclick="setupFavoriteCafe(true, false, 25824422);clickcr(this, 'cia.fav', '', '', event);return false;"><img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="27" height="28" alt="즐겨찾는 카페 등록" class="btn-bookmark-off" id="favoriteCafeInMemberInfo"></a>
+						</li>
+					</ul>
+					<div class="box-g" role="tabpanel">
+						<h4 class="d-none">나의활동</h4>
+						<div id="ia-action-data"></div>
+						<div class="ia-action-data ia-action-link" id="myActivityLink">
+							<a href="/CafeMemberNetworkView.nhn?m=view&amp;clubid=25824422&amp;memberid=seoun3313" class="gm-tcol-c" target="cafe_main" onclick="clickcr(this, 'cia*a.mypost', '', '', event); targetCleaner(this);">내가 쓴 글</a>
+							<span class="bar gm-tcol-c filter-20">ㅣ</span>
+							<a href="/NpayTradeHistoryList.nhn?cafeId=25824422&amp;type=S" class="gm-tcol-c" target="cafe_main" onclick="clickcr(this, 'cia*a.mylist', '', '', event);targetCleaner(this);">내 거래내역</a>
+						</div>
+						<div class="ia-info-btn">
+							<ul class="ia-info-list">
+								<li>
+									<a href="#" onclick="inviteMember();clickcr(this, 'cia*i.invite', '', '', event);return false;" class="gm-tcol-c _rosRestrict">초대</a>
+								</li>
+								<li>
+									<a href="#" onclick="chatting(true);clickcr(this, 'cia*i.chat', '', '', event);return false;" class="gm-tcol-c" target="_blank">카페 채팅</a>
+								</li>
+							</ul>
+						</div>
+						<div id="myAppListDIV" class="layer_myjoinapp" style="display: none;"></div>
+					</div>
+
+					<div class="cafe-write-btn">
+						<a href="#" class="_rosRestrict" onclick="writeBoard();clickcr(this, 'mnu.write', '', '', event);return false;"><img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="171" height="34" alt="카페 글쓰기" class="btn-write"></a>
+					</div>
+				
+			</div>
+        
+    
+	
+</div>
+
+<script type="text/javascript">
+     
+	function writeBoard() {
+		
+		
+		
+		var oMenu = oMenuMoveUpdater.current();
+		var bSupportTablet = Tablet.editing.JustAlert()
+			.check({
+				bAccessTabletPC : false,
+				bReadOnlyStatus : false,
+				bMarketBoard : oMenu.isMarketBoard(),
+				bStaffBoard : oMenu.isStaffBoard(),
+				bHasArticleForm : oMenu.hasArticleForm(),
+				bHasTemplate : oMenu.hasTemplate()
+			});
+		
+		if (!bSupportTablet) {
+			return;
+		}
+		
+		if (oMenu.isStaffBoard()) {
+			$("cafe_main").src = '/StaffArticleWrite.nhn?clubid=25824422&menuid=' + oMenu.nMenuId + '&boardtype=L&m=write';
+		} else {
+			$("cafe_main").src = '/ArticleWrite.nhn?clubid=25824422&menuid=' + oMenu.nMenuId + '&boardtype=L&m=write';
+		}
+    }
+	var isFolded = false;
+        
+    // 카페정보 보기 
+	function showCafeInfo() {
+		showPopularityLog();
+		
+		Element.show("cafe-info-data");
+		Element.hide("member-action-data");
+
+		try{
+			var etc = {};
+			etc["sti"] = "cafe_infodata";
+			lcs_do(etc);
+		}catch(e) {}
+	}
+    
+	showPopularityLog();
+	
+    // 카페 인기도 로그 보기
+    function showPopularityLog() {
+		var ajax = new Ajax("/CafePopularityLogAjax.nhn?clubid=25824422&id=" + new Date().getTime(), {
+				suspend : "false",				
+				onLoad : cafePopularityLogShipCB
+		});
+		
+		ajax.request();
+    }
+   
+	// 카페 인기도 로그 조회 콜백
+	function cafePopularityLogShipCB(res) {
+		if (res.status == 200) {
+			$("cafePopularityLog").innerHTML = res.responseText;
+		}
+	}
+	
+	function showAppCafeDescView(onmouseover) {
+		if(onmouseover) {
+			$("cafePopularityLog").className = 'ia-info-data3 ly_on';
+			$("cafePopularityLog_info3").className = 'info3 ly_on';
+			$('appCafeInstallCountDescLayer').style.display = '';
+		} else {
+			$("cafePopularityLog").className = 'ia-info-data3';
+			$("cafePopularityLog_info3").className = 'info3';
+			$('appCafeInstallCountDescLayer').style.display = 'none';
+		}
+	}
+		
+	// 나의 활동 보기
+	function showMyAction()
+	{		
+
+  
+  
+            suggestJoin();        
+  
+  
+
+	}
+	
+	// 나의 활동정보 조회 콜백
+	function cafeMemberShipCB(res){
+		if(res.status==200)
+		{
+			$("ia-action-data").innerHTML = res.responseText;
+		}
+	}
+	
+	
+	// 카페정보/ 나의 활동영역 접기/펼치기
+	function toggleIA()
+	{
+		if(isFolded)
+		{
+			$("ia-info-up-img").className = $("ia-info-up-img").className.replace("down","up");
+			$("ia-action-down-img").className = $("ia-action-down-img").className.replace("down","up");
+			Element.show("ia-info-data");
+						
+            
+            $("ia-info-down-img").className = $("ia-info-down-img").className.replace("down","up");
+            $("ia-action-up-img").className = $("ia-action-up-img").className.replace("down","up");
+			Element.show("ia-action-data");
+			Element.show("myActivityLink");			
+			
+			isFolded = false;
+		} else {		
+			$("ia-info-up-img").className = $("ia-info-up-img").className.replace("up","down");
+			$("ia-action-down-img").className = $("ia-action-down-img").className.replace("up","down");
+			Element.hide("ia-info-data");
+						
+            
+            $("ia-info-down-img").className = $("ia-info-down-img").className.replace("up","down");
+            $("ia-action-up-img").className = $("ia-action-up-img").className.replace("up","down");
+			Element.hide("ia-action-data");
+			Element.hide("myAppListDIV");
+			Element.hide("myActivityLink");
+            
+			isFolded = true;
+		}
+	}
+	
+	// 카페소개
+	function cafeProfile()
+	{
+	    moveIframePage('/CafeProfileView.nhn?clubid=25824422');
+	}
+	
+	// 카페 랭킹
+	function cafeRanking()
+	{
+	    moveIframePage('/CafeRankingCafeView.nhn?clubid=25824422');
+	}
+	
+	// 청소년유해매체 카페 공지
+	function teenagerHarmfulCafeNotice() {
+		window.open('http://terms.naver.com/entry.nhn?docId=72599');
+	}
+	
+	// 초대
+	function inviteMember()
+	{
+        
+        
+        
+        
+            suggestJoin();        
+        
+        
+        		
+	}
+	
+	// 멤버정보 변경
+	function cafeMemberInfoEdit(event){
+		open_window("/CafeMemberInfo.nhn?clubid=25824422&memberid=seoun3313", "popup", 500, 780, "toolbar=0,menubar=0,scrollbars=yes,resizable=yes");	    
+	}
+
+	// 별명 변경 
+	function openProfileEdit(){
+	    window.open("http://admin.blog.naver.com/AdminMain.nhn?blogId=seoun3313&Redirect=Basicinfo", "profile");
+	}
+	
+	// 카페 멤버보기
+	function showCafeMember()
+	{
+        
+        
+		
+        
+            suggestJoin();        
+        
+        
+        
+	}
+
+	function joinCafeFromArticle() {
+		oBAStatSender.send([
+			{
+				eventType : cafe.BAStatEventType.PC_843_166
+			}
+		]);
+
+		$("cafeApply_check").submit();
+
+		return false;
+	}
+
+	function joinCafe(redirectUrl) {
+        var cafeApplycheckForm =  $("cafeApply_check");
+
+		oBAStatSender.send([
+			{
+				eventType : cafe.BAStatEventType.PC_758_167,
+				extra : {
+					cafe_id : '25824422'
+				}
+			}
+		]);
+
+	    if(typeof redirectUrl != "undefined") {
+            cafeApplycheckForm.redirectUrl.value = redirectUrl;
+		}
+
+        cafeApplycheckForm.submit();
+
+		return false;
+	}
+
+	// 멤버레벨 정보 팝업
+	function viewMyMemberLevel() {
+		open_window("/MemberLevelView.nhn?m=mylevelview&clubid=25824422", "mylevelview", 740, 498, "");
+	}
+	
+</script>
+		        
+		        	
+
+
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/URLEncodingMap_MS949-1545208501000-97750.js"></script>
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/URLEncoder-1545208501000-2121.js"></script>
+
+<script type="text/javascript">
+var searchParentFrame = null;
+function searchBoard()
+{
+	searchParentFrame = document.frmBoardSearch;
+	
+ 	if (searchParentFrame.query.value.split(/[ \t]/g).join("") == "") 
+    {
+    	alert("검색어를 입력하세요.");
+        searchParentFrame.query.focus();
+        return;
+    }
+
+    //CAFESUS-4750  공통 금칙어 필터/팝업 삭제        
+    //var wordcheckframe = document.createElement("iframe");
+    //wordcheckframe.width = "0";
+    //wordcheckframe.height = "0";
+    //document.body.appendChild(wordcheckframe);
+    //wordcheckframe.src = "/SectionSearchWordCheck.nhn";
+    searchFrmAfter(searchParentFrame);
+    
+    return;
+}
+
+function searchFrmAfter(frm)
+{
+    $("cafe_main").src = "/ArticleSearchList.nhn?search.clubid=25824422&search.searchBy=0&search.query=" + URLEncoder.encode(frm.query.value,"MS949");
+}
+</script>
+
+
+	
+	
+		<div id="cafe-search">
+			<form name="frmBoardSearch" action="" onsubmit="return false;" autocomplete="off">
+				<input title="카페글 검색어 입력" type="text" name="query" style="ime-mode:active" id="topLayerQueryInput" onkeydown="if (event.keyCode == 13) {searchBoard();}">
+				<a href="#" onclick="searchBoard();return false;"><img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="42" height="21" alt="검색" class="btn-search-green"></a>
+			</form>
+		</div>
+	
+
+
+
+<form name="pwmForm" method="POST" action="" target="">
+    <input type="hidden" name="ugcTypeName" value="">
+    <input type="hidden" name="prohibitWords" value="">
+</form>     
+
+
+		        
+				
+
+
+
+
+
+
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/menu/Menu-1545208501000-4245.js"></script>
+
+
+<script type="text/javascript">
+    var oMenus = new Cafe.menu.Menus();
+    var oMenuMoveUpdater = new Cafe.menu.MenuMoveUpdater(oMenus);
+
+    
+    [0, -10, -1, -2, -3, -15, -20, -4, -5, -25,-7].each(function(nMenuId) {
+        var oMenu = new Cafe.menu.Menu({
+            nMenuId : nMenuId,
+            bBadMenu : false,
+            sMenuType : "",
+            sBoardType : "L",
+            bHasArticleForm : false,
+            bHasTemplate : false
+        });
+
+        oMenus.add(oMenu);
+    });
+    
+
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 29,
+        bBadMenu : false,
+        sMenuType : "F",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 34,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 31,
+        bBadMenu : false,
+        sMenuType : "S",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 28,
+        bBadMenu : false,
+        sMenuType : "F",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 44,
+        bBadMenu : false,
+        sMenuType : "L",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 68,
+        bBadMenu : false,
+        sMenuType : "L",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 33,
+        bBadMenu : false,
+        sMenuType : "M",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 32,
+        bBadMenu : false,
+        sMenuType : "M",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 55,
+        bBadMenu : false,
+        sMenuType : "S",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 35,
+        bBadMenu : false,
+        sMenuType : "F",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 49,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 42,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 50,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 22,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 51,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 46,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 60,
+        bBadMenu : false,
+        sMenuType : "S",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 52,
+        bBadMenu : false,
+        sMenuType : "F",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 56,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 62,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 63,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 25,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 64,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 48,
+        bBadMenu : false,
+        sMenuType : "S",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 69,
+        bBadMenu : false,
+        sMenuType : "F",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 19,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 26,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 23,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 70,
+        bBadMenu : false,
+        sMenuType : "S",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 47,
+        bBadMenu : false,
+        sMenuType : "F",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 65,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 57,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 59,
+        bBadMenu : false,
+        sMenuType : "S",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 58,
+        bBadMenu : false,
+        sMenuType : "F",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 66,
+        bBadMenu : false,
+        sMenuType : "L",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 67,
+        bBadMenu : false,
+        sMenuType : "L",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 24,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 45,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 38,
+        bBadMenu : false,
+        sMenuType : "S",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 36,
+        bBadMenu : false,
+        sMenuType : "F",
+        sBoardType : " ",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 18,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 21,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 27,
+        bBadMenu : false,
+        sMenuType : "B",
+        sBoardType : "L",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+    var oMenu = new Cafe.menu.Menu({
+        nMenuId : 8,
+        bBadMenu : false,
+        sMenuType : "S",
+        sBoardType : "",
+        bHasArticleForm : false,
+        bHasTemplate : false
+    });
+
+    oMenus.add(oMenu);
+    
+
+    // 메뉴로 이동
+    // 사실상 아래 메소드는 특정 메뉴를 클릭했을 때, 1. 해당 메뉴를 Bold등의 처리를 하고, 2. 동일한 메뉴(스페셜메뉴, 기본메뉴 등에)가 있을 경우, 같이 Bold 처리함
+    function goMenu(nMenuId)	{
+        // 메뉴이동속도를 빠르게 하기 위해 실제 메뉴이동은 별개로 처리
+        setTimeout(function () {
+            oMenuMoveUpdater.update(nMenuId);
+        }, 1);
+    }
+
+	function toggleMenuGroup(gid) {
+		var toggleButton = $(gid + "btn");
+		if (toggleButton) {
+			if (toggleButton.className == "up-btn") {
+				toggleButton.className = "down-btn";
+			} else {
+				toggleButton.className = "up-btn"
+			}
+		}
+
+		if (!$(gid)) {
+			return false;
+		}
+
+		if ($(gid).style.display == 'none') {
+			Element.show(gid);
+		} else {
+			Element.hide(gid);
+		}
+
+		return false;
+	}
+
+    function showGroupNewImage(groupImageId) {
+        var welGroupImage = $(groupImageId);
+        if (typeof welGroupImage == 'undefined' ||  welGroupImage == null) {
+            return;
+        }
+		$(groupImageId).style.cssText = "display:inline-block !important;";
+    }
+</script>
+<div id="cafe-menu">
+	<div class="box-g-t"></div>
+	<div class="box-g-m">
+		
+		
+
+		
+		<ul class="cafe-menu-list">
+			<li>
+				<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt=""><a href="/ArticleList.nhn?search.clubid=25824422&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('0');clickcr(this, 'mnu.all','','',event);" class="gm-tcol-c" id="menuLink0">전체글보기</a>
+				
+					
+					
+						<span class="gm-tcol-c p11" style="padding-right:2px;">(<strong>9,838</strong>)</span>
+					
+				
+			</li>
+
+			
+
+			
+				
+				
+				
+				
+				
+			
+				
+				
+				
+				
+				
+			
+				
+				
+				
+				
+				
+			
+				
+				
+				
+				
+				
+			
+				
+				
+				
+				
+				
+					<li><img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="11" height="11" class="ico-cafe-kin" alt=""><a href="/KinActivityNewQuestionList.nhn?search.clubid=25824422" target="cafe_main" onclick="goMenu(-25);clickcr(this,'mnu.kact', '', '', event);" class="gm-tcol-c" id="menuLink-25">카페지식활동</a></li>
+				
+			
+		</ul>
+
+		
+		
+
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+			
+			
+		<div class="cafe-menu-tit">
+			
+				
+				
+					<h3><span class="gm-tcol-t" title="▶ Infomation ◀">▶ Infomation ◀</span></h3>
+				
+			
+		</div>
+		
+		<ul class="cafe-menu-list" id="group29" style="">
+		
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=34&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('34');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c b" id="menuLink34">
+						공지사항
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg29");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+			
+			
+			
+			
+
+			
+				
+			
+			
+			</ul>
+		<div class="cafe-menu-tit">
+			
+				
+				
+					<h3><span class="gm-tcol-t" title="▶ 정책자금  상담 ◀">▶ 정책자금  상담 ◀</span></h3>
+				
+			
+		</div>
+		
+		<ul class="cafe-menu-list" id="group28" style="">
+		
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-link" alt="">
+					<a href="http://sbil.co.kr/counsel/counsel_010100.html" target="_blank" onclick="goMenu('44');clickcr(this, 'mnu.link','','',event);" class="gm-tcol-c" id="menuLink44">
+						간편 상담 신청
+					</a>
+
+					
+				</li>
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-link" alt="">
+					<a href="http://lead4.webmaker21.kr/request_type1" target="_blank" onclick="goMenu('68');clickcr(this, 'mnu.link','','',event);" class="gm-tcol-c" id="menuLink68">
+						정책자금 상담 신청
+					</a>
+
+					
+				</li>
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-memo" alt="">
+					<a href="/MemoList.nhn?search.clubid=25824422&amp;search.menuid=33" target="cafe_main" onclick="goMenu('33');clickcr(this, 'mnu.memo','','',event);" class="gm-tcol-c" id="menuLink33">
+						전화 상담 신청
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg28");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-memo" alt="">
+					<a href="/MemoList.nhn?search.clubid=25824422&amp;search.menuid=32" target="cafe_main" onclick="goMenu('32');clickcr(this, 'mnu.memo','','',event);" class="gm-tcol-c" id="menuLink32">
+						카카오톡 상담 신청
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg28");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+			
+			
+			
+			
+
+			
+				
+			
+			
+			</ul>
+		<div class="cafe-menu-tit">
+			
+				
+				
+					<h3><span class="gm-tcol-t" title="▶ 정책 자금  문의◀">▶ 정책 자금  문의◀</span></h3>
+				
+			
+		</div>
+		
+		<ul class="cafe-menu-list" id="group35" style="">
+		
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=49&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('49');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink49">
+						정책자금
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg35");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=42&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('42');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink42">
+						운전자금
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg35");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=50&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('50');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink50">
+						시설, 공장 자금
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg35");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=22&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('22');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink22">
+						창업 자금
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg35");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=51&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('51');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink51">
+						소상공인 자금
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg35");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=46&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('46');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink46">
+						기타 자금
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg35");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+			
+			
+			
+			
+
+			
+				
+			
+			
+			</ul>
+		<div class="cafe-menu-tit">
+			
+				
+				
+					<h3><span class="gm-tcol-t" title="▶ 기업 인증  문의◀">▶ 기업 인증  문의◀</span></h3>
+				
+			
+		</div>
+		
+		<ul class="cafe-menu-list" id="group52" style="">
+		
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=56&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('56');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink56">
+						기업부설연구소 설립
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg52");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=62&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('62');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink62">
+						벤처기업인증
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg52");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=63&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('63');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink63">
+						이노비즈
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg52");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=25&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('25');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink25">
+						메인비즈
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg52");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=64&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('64');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink64">
+						기타인증
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg52");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+			
+			
+			
+			
+
+			
+				
+			
+			
+			</ul>
+		<div class="cafe-menu-tit">
+			
+				
+				
+					<h3><span class="gm-tcol-t" title="▶ 기업 재무  문의◀">▶ 기업 재무  문의◀</span></h3>
+				
+			
+		</div>
+		
+		<ul class="cafe-menu-list" id="group69" style="">
+		
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=19&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('19');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink19">
+						세무
+					</a>
+					
+						
+						
+							
+							
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=26&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('26');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink26">
+						가지급금
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg69");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=23&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('23');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink23">
+						기업신용관리
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg69");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+			
+			
+			
+			
+
+			
+				
+			
+			
+			</ul>
+		<div class="cafe-menu-tit">
+			
+				
+				
+					<h3><span class="gm-tcol-t" title="▶ 기업 경영  문의◀">▶ 기업 경영  문의◀</span></h3>
+				
+			
+		</div>
+		
+		<ul class="cafe-menu-list" id="group47" style="">
+		
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=65&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('65');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink65">
+						법무
+					</a>
+					
+						
+						
+							
+							
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=57&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('57');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink57">
+						인사 노무
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg47");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+			
+			
+			
+			
+
+			
+				
+			
+			
+			</ul>
+		<div class="cafe-menu-tit">
+			
+				
+				
+					<h3><span class="gm-tcol-t" title="▶ 재무재테크 상담 ◀">▶ 재무재테크 상담 ..</span></h3>
+				
+			
+		</div>
+		
+		<ul class="cafe-menu-list" id="group58" style="">
+		
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-link" alt="">
+					<a href="http://www.fin-corp.co.kr" target="_blank" onclick="goMenu('66');clickcr(this, 'mnu.link','','',event);" class="gm-tcol-c" id="menuLink66">
+						무료 재테크 상담 받기
+					</a>
+
+					
+				</li>
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-link" alt="">
+					<a href="http://www.yeahfin.com/" target="_blank" onclick="goMenu('67');clickcr(this, 'mnu.link','','',event);" class="gm-tcol-c" id="menuLink67">
+						무료 재무상담 받기
+					</a>
+
+					
+				</li>
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=24&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('24');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink24">
+						재테크
+					</a>
+					
+						
+						
+							
+							
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=45&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('45');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink45">
+						재무설계
+					</a>
+					
+						
+						
+							
+							
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+			
+			
+			
+			
+
+			
+				
+			
+			
+			</ul>
+		<div class="cafe-menu-tit">
+			
+				
+				
+					<h3><span class="gm-tcol-t" title="▶ 친 목  ◀">▶ 친 목  ◀</span></h3>
+				
+			
+		</div>
+		
+		<ul class="cafe-menu-list" id="group36" style="">
+		
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=18&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('18');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink18">
+						가입인사
+					</a>
+					
+						
+						
+							
+							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10" height="9" class="ico_new" alt="새 게시글" title="새 게시글"><script type="text/javascript">showGroupNewImage("groupnewimg36");</script>
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=21&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('21');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink21">
+						자유게시판
+					</a>
+					
+						
+						
+							
+							
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+				
+				
+				<li>
+					
+					<img src="https://cafe.pstatic.net/cafe4/hidden.gif" width="10" height="11" class="ico-list" alt="">
+					<a href="/ArticleList.nhn?search.clubid=25824422&amp;search.menuid=27&amp;search.boardtype=L" target="cafe_main" onclick="goMenu('27');clickcr(this, 'mnu.normal','','',event);" class="gm-tcol-c" id="menuLink27">
+						기타
+					</a>
+					
+						
+						
+							
+							
+						
+					
+				</li>
+			
+			
+			
+			
+				
+				
+
+				
+			
+				
+			
+
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+				
+			
+			
+			
+			
+		
+		
+	</ul></div>
+
+	
+		<div id="menu_restirction_tip" class="appr_rst_ly" style="position:absolute;display:none;">
+			<p>이 게시판은 카페 멤버들의 접근이<br>제한되었습니다.</p>
+		</div>
+	
+	<div class="box-g-b"></div>
+</div>
+
+	
+	
+
+		<script type="text/javascript">
+            function exposeToolTip(tagElement) {
+                var elParent = tagElement.parentNode,
+                    nTop = Element.realPos(elParent).top + elParent.offsetHeight,
+                    nLeft = Element.realPos($("cafe-menu")).left,
+                    elLayer = $("menu_restirction_tip");
+
+                if(elLayer.parentNode != document.body) {
+                    document.body.appendChild(elLayer);
+                }
+
+                Element.setCSS(elLayer, {
+                    "top" : nTop + "px",
+                    "left" : nLeft + "px",
+                    "display" : "block"
+                });
+            }
+
+            function closeToolTop() {
+                var fktip = document.getElementById("menu_restirction_tip");
+                fktip.style.display = "none";
+            }
+		</script>
+
+	
+
+
+				
+				<ul class="com">
+					
+					
+						
+
+
+<li class="box-ww widget-top">
+<div id="widget-weather">
+
+
+
+<title></title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?2">
+<meta name="referrer" content="always">
+
+
+
+
+
+
+
+<div class="weather">
+    <img src="https://cafe.pstatic.net/widget/weather3/weather_3_8.png" id="weather_icon1" class="png24" alt="비 끝남">
+</div>
+
+<div class="temperature">16</div>
+
+<div class="area">서울</div>
+
+<img src="https://cafe.pstatic.net/widget/weather3/weather_3_8.png" id="weather_icon1_no" style="display:none;">
+
+</div>
+</li>
+
+						
+						
+							
+						
+					
+						
+
+
+
+<li class="box-ww">
+<div id="widget-watch"><div><canvas width="171" height="64"></canvas></div></div>
+</li>
+
+						
+						
+							
+						
+					
+
+
+					
+						
+						
+							<li class="box-w">
+								<a href="/CafeInviteReject.nhn?clubid=25824422&amp;m=view" class="tcol-c link_invite" onclick="popup(this.href,'w_a_invite',420,220,'no');return false;">이 카페 초대 안받기</a>
+							</li>
+						
+					
+
+
+				</ul>
+				<div class="banner_chatbot">
+					<a href="https://talk.naver.com/ct/wc63k2" class="chatbot"><img src="https://ssl.pstatic.net/static/cafe/banner_chatbot.png" width="171" height="55" alt="궁금한게 있을 땐 카페 스마트봇"></a>
+				</div>
+			</div>
+			
+			
+			<div id="main-area" class=" fr">
+				<input id="gateOpen" type="hidden" value="1">
+				<input id="searchviewtype" type="hidden" value="title">
+				
+				
+	      		
+				
+					
+			        
+			        
+					
+						
+						
+							
+							<iframe name="cafe_main" id="cafe_main" title="카페 메인" src="//cafe.naver.com/ArticleRead.nhn?articleid=10350&amp;sc=bb4158e88357abe71e12e5fbc1709b25d2cbd242&amp;query=%C1%DF%BC%D2%B1%E2%BE%F7+%C5%F5%C0%DA%C0%AF%C4%A1%BF%CD+%C0%DA%B1%DD%C1%B6%B4%DE+%BD%C7%B9%AB&amp;where=search&amp;clubid=25824422&amp;tc=naver_search" width="773" height="100%" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" allowtransparency="true" allowfullscreen="" style="height: 6351px; width: 773px;"></iframe>
+							
+							<script type="text/javascript">
+                                $("cafe_main").src = "//cafe.naver.com/ArticleRead.nhn?articleid=10350&sc=bb4158e88357abe71e12e5fbc1709b25d2cbd242&query=%C1%DF%BC%D2%B1%E2%BE%F7+%C5%F5%C0%DA%C0%AF%C4%A1%BF%CD+%C0%DA%B1%DD%C1%B6%B4%DE+%BD%C7%B9%AB&where=search&clubid=25824422&tc=naver_search";
+							</script>
+						
+					
+				
+				
+				
+				
+
+
+
+
+
+				
+			</div>
+			
+
+
+		</div>
+		
+		
+			
+
+
+
+
+    
+    
+        <div id="cafe-footer">
+            <p class="cafe-name m-tcol-c">네이버 카페 <span class="m-tcol-p">[알기쉬운 정책자금] 정책자금,기업부설연구소, 벤처인증</span></p>
+        </div>
+    
+
+		
+
+		
+		<div id="hbeanLeverageLayer" style="z-index:101; position:absolute; top:100px; right:10px;"></div>
+	</div>
+	
+	<a href="#" class="blind" onfocus="var t=document.getElementById('u_skip');t.tabIndex=-1;t.focus();return false" style="visibility:visible">콘텐츠 상단</a>
+</div>
+
+
+
+
+
+
+
+<input type="hidden" id="questionct" value="block">
+<iframe name="cafe_check" id="cafe_check" width="0" height="0" frameborder="0" title="카페확인"></iframe>
+<form id="cafeApply_check" action="/CafeApplyCheck.nhn" method="post" target="cafe_check" style="margin:0;padding:0;">
+<input type="hidden" name="clubid" value="25824422">
+<input type="hidden" name="email" value="">
+<input type="hidden" name="alreadyMemberPopup" value="true">
+<input type="hidden" id="redirectwrite" name="redirectwrite" value="">
+<input type="hidden" id="redirectUrl" name="redirectUrl" value="">
+</form>
+<form name="answerSaveFrm" style="display:none;">
+</form>
+<form name="nicknameSaveFrm">
+<input type="hidden" id="cafeTempApplyNickname" name="cafeTempApplyNickname" value="">
+</form>
+
+
+
+
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/lib/nanoajax/nanoajax.min-1545208501000-685.js" charset="UTF-8"></script>
+
+<script type="text/javascript">
+    
+    setMinSize(773, -1);
+    setMaxSize(773, -1);
+
+    
+    function moveIframePage(url) {
+        $("cafe_main").src = url;
+    }
+
+    
+    
+    function suggestJoin() {
+        
+
+        var clubname = "[알기쉬운 정책자금] 정책자금,기업부설연구소, 벤처인증";
+        if (confirm('카페멤버만 이용할 수 있는 기능입니다.\n' + clubname.replace(/&lt;/g, "<").replace(/&gt;/g, ">") + ' 카페에 가입하시겠습니까?')) {
+            joinCafe();
+        }
+    }
+    
+
+    
+    
+</script>
+
+
+<script type="text/javascript">
+    var oPowerCafeNoticeLayer = new PowerCafeNoticeLayer({
+        aNotices : [
+            {'name' : 'powerCafeNotice', 'show' : false},
+            {'name' : 'powerCafeCandidateNotice', 'show' : false}
+        ]
+    });
+</script>
+
+
+
+<link rel="stylesheet" href="/static/css/main/css/ip_layer_2-1545208501000-2931.css" type="text/css">
+
+
+<script type="text/javascript">
+	function openLoginLayer() {
+		var loginCheckOk = "https://cafe.naver.com/LoginCheck.nhn?m=login";
+		checkFrame.location.replace("https://nid.naver.com/nidlogin.login?mode=form&svctype=40960&id=seoun3313&url="+loginCheckOk);
+
+		
+		var layerScrollTop = parent.document.getElementsByTagName('HTML')[0].scrollTop;
+        var layerClientHeight = parent.document.getElementsByTagName('HTML')[0].clientHeight;
+        var layerPosition = layerScrollTop + (layerClientHeight * 0.5);
+        document.getElementById("login_layer").style.top = layerPosition + "px";
+        
+		document.getElementById("login_layer_bg").style.display = "";
+		document.getElementById("login_layer").style.display = "";
+    	document.getElementById("login_layer").focus();		
+	}
+
+	function closeLoginLayer() {
+		document.getElementById("login_layer_bg").style.display = "none";
+	    document.getElementById("login_layer").style.display = "none";
+	}
+</script>
+<div id="login_layer_bg" style="z-index:100;display:none;position:absolute;width:100%;height:3800px;top:0px;left:0px;background-color:GRAY;filter:alpha(opacity=20);-moz-opacity:0.2;">
+  <iframe id="login_layer_bg_iframe" frameborder="0" style="position:absolute;top:0px;left:0px;width:100%;height:3800px;background-color:GRAY;filter:alpha(opacity=20);-moz-opacity:0.2;" title="로그인영역"></iframe>
+</div>
+<div id="login_layer" class="layerpopup" style="z-index:1001; width:394px; top:400px; left:35%; display:none;">
+  <div class="shadow1">
+  <div class="shadow1_side">
+		<div class="shadow2">
+        <div class="shadow2_side">
+			<div class="shadow3">
+	        <div class="shadow3_side">
+               
+			<div class="border_type">
+				<div class="logbox_wrap">
+
+					<p class="notice">회원님의 안전한 서비스 이용을 위해 <strong>비밀번호를 확인해 주세요.</strong></p>
+
+	           		<p class="notice02" id="layerd_notice01" style="display:none;">IP가 자주 변경되는 네트워크 환경에서 로그인하는 경우 <br><strong>IP보안을 해제</strong> 후 이용하시기 바랍니다.</p>
+					<p class="notice02">다시 한번 <strong>비밀번호 확인</strong> 하시면 이용중인 화면으로 돌아가며, 작성 중이던<br>내용을 정상적으로 전송 또는 등록하실 수 있습니다.</p>
+	
+					<a href="javascript:closeLoginLayer();" class="closelayer" role="button"><img src="https://ssl.pstatic.net/static/ws/btn_close.gif" alt="닫기" width="15" height="14"></a>
+	           		<div class="frame_wrap type03"><iframe id="checkFrame" name="checkFrame" width="350" height="163" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="빈프레임"></iframe></div>
+	
+				</div>
+			</div>
+			
+          	</div>
+			</div>
+        </div>
+		</div>
+  </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+	function makeReturnUrl(iframeUrl) {
+		iframeUrl = iframeUrl.replace('https://cafe.naver.com', "");
+		var returnUrl = "https://cafe.naver.com/tantanms.cafe?iframe_url=" + URLEncoder.encode(iframeUrl,"MS949");
+		returnUrl = URLEncoder.encode(returnUrl,"MS949");
+		return returnUrl;
+	}
+
+	function openWindow(target) {
+
+		var centerWidth = (window.screen.width - 450) / 2;
+	    var centerHeight = (window.screen.height - 500) / 2;
+
+	    window.open(target, '_blank', 'width=440,height=500' + ',left=' + centerWidth + 
+		        ',top=' + centerHeight + ',status=no,scrollbars=no,resizable=no,menubar=no,toolbar=no,location=no');	    
+	}
+	
+	function openSigningLayer(target) {
+		var frame = document.getElementById('addressAuthFrame');
+			
+		frame.contentWindow.location.href = target;
+	
+		
+		var layerScrollTop = parent.document.getElementsByTagName('HTML')[0].scrollTop;
+		var layerClientHeight = parent.document.getElementsByTagName('HTML')[0].clientHeight;
+		
+		var layerPosition =  layerScrollTop + (layerClientHeight * 0.2);
+                
+        document.getElementById("signing_layer").style.top = layerPosition + "px";
+        
+        document.getElementById("signing_layer_bg").style.display = "";
+		document.getElementById("signing_layer").style.display = "";
+    	document.getElementById("signing_layer").focus();	
+	
+	}
+
+	function closeSigningLayer() {
+		document.getElementById("signing_layer_bg").style.display = "none";
+	    document.getElementById("signing_layer").style.display = "none";
+	}
+</script>
+
+
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/lib/cafe/jindo1/OneToOneChatLauncher-1545208501000-1422.js" charset="utf-8"></script>
+
+<script type="text/javascript" src="/static/js/mycafe/javascript/cafe_ui-1554190093000-18713.js"></script>
+
+
+
+
+
+
+
+    
+    
+        <script type="text/javascript" src="/static/js/mycafe/javascript/widget/Clock-1545208501000-168726.js" charset="UTF-8"></script>
+
+    
+
+
+<script type="text/javascript">
+document.domain = "naver.com";
+
+function notiAlert(frmStr)
+{
+    open_window("", frmStr, 100, 100, "");
+    var frm = eval("document." + frmStr);
+    frm.target = frmStr;
+    try{
+        frm.submit();
+    }catch(e){}
+}
+
+
+
+
+
+
+
+
+
+function visit() {
+
+
+	try{
+		var ajax = new Ajax("/MyCafeVisit.nhn", {
+			suspend : "true",         
+			method : "POST",
+			params : { "clubid":25824422,"usingCounter":false,"ceremonyCheckNeeded":false },      
+			onLoad : cafeVisitCB
+		});
+		ajax.request();
+	}catch(e){
+		JEagleEyeClient.raiseError(e, this, {
+    		message : "MyCafeVisit.nhn - failed:" + 25824422
+    	});
+	}
+
+
+
+}
+function cafeVisitCB(res) { 
+	if(res.status==200) {
+		try{ 
+	
+			var counter = eval('(' + res.responseText + ')');
+			
+			if(counter == null || counter == 'undefined') {
+				return false;
+			}
+			
+		
+		
+		
+				if(counter.visitEventResult != null && counter.visitEventResult.win == 'true') {
+					open_window('/CafeEventPop.nhn?clubid=25824422&eventtype=2&eventresult='+counter.visitEventResult.condition+'&eventarticle='+counter.visitEventResult.eventArticleid, 'cafe_event_popup', 330, 250);
+				}
+				if(counter.ceremonyPassed == 'true') {
+					open_window("/CafeCeremonyProcess.nhn?clubid=25824422&m=pass","cafe_ceremony_pass", 450, 200);
+				}
+		       
+		
+			if(counter.notiList != null) {
+				for (var i = 0; i < counter.notiList.length; i++) {
+					if (counter.notiList[i].exposeAll == 'true' || counter.notiList[i].exposeCafe == 'true') {			
+						document.notifrm.action = counter.notiList[i].param2;
+						document.notifrm.noticode.value = counter.notiList[i].noticode;
+						document.notifrm.comment.innerText = counter.notiList[i].message;
+						
+						notiAlert('notifrm');
+					}
+				}
+			}
+		}catch(e){
+			JEagleEyeClient.raiseError(e, this, {
+        		message : "response:" + res.responseText}
+        	);
+		}  
+	} 
+} 
+
+LH.add("visit()");
+
+Function.prototype.bind = function(){
+    var f = this, a = $A(arguments), object = a.shift();
+    return function(){
+        f.apply(object, a.concat($A(arguments)));
+    }
+};
+
+function callAppView(componentid, appId) {
+    var ajax = new Ajax("/AppCafeViewAjax.nhn?clubid=25824422&appId="+appId, {
+        suspend : "true",
+        onLoad : appViewCallBack.bind(window,componentid,appId)
+    });
+    ajax.request();
+}
+
+
+function appViewCallBack(componentid, appId, res) {
+    $(componentid).innerHTML = '';
+    $(componentid).innerHTML = res.responseText;
+
+    try{
+        parentResizeIframe('cafe_main');
+    }catch(e){}
+}
+
+
+
+
+
+
+
+
+
+    
+	var bSupportHTML5 = true;
+	var oNavi = navigator.userAgent;
+    var bIE = oNavi.indexOf('MSIE') > 0 ? true : false;
+    var oIEVersion = (bIE) ? parseFloat(oNavi.match(/(?:MSIE) ([0-9.]+)/)[1]) : 0;
+    if (bIE && oIEVersion < 10){
+        bSupportHTML5 = false;
+    }
+
+    
+    var cafe_watch_area_Id = "widget-watch";
+    var cafe_watch_css =  "digital_121_06|4|000000|FFEF00";
+
+    
+	if (cafe_watch_css.indexOf("undefined") > -1) {
+	    cafe_watch_css = 'digital_064_05|4|7F7F7F|FFFFFF';
+    }
+
+    
+    if (bSupportHTML5) {
+        
+            
+            
+            cafe_watch_css = 'wide_skin|1|000000|FFFFFF';
+            
+        
+    }
+
+
+	var cafe_watch_name = cafe_watch_css.split('|')[0];
+    var cafe_watch_font = cafe_watch_css.split('|')[1];
+    var cafe_watch_color = cafe_watch_css.split('|')[2];
+    var cafe_watch_bgcolor = cafe_watch_css.split('|')[3];
+
+
+    var sBackgroundImgUrl = 'https://cafe.pstatic.net';
+    var bHttps = window.location.protocol == 'https:';
+    if (bHttps) {
+        sBackgroundImgUrl += '/img/httpscanvas/';
+    } else {
+        sBackgroundImgUrl += '/img/canvas/';
+    }
+
+    
+        
+        
+            sBackgroundImgUrl +='widget_watch_20161121.png';
+        
+    
+
+
+    var sDataUrl =  '/ContentWidget.nhn?m=watch&city=KR004&';
+ 	var oContentsTable = {
+			"digital_121_06" : 10,
+			"digital_064_05" : 7,
+			"analog_121_04" : 1,
+			"analog_121_07" : 2,
+			"analog_121_08" : 3,
+			"digital_038_01" : 6,
+            "wide_skin" : 7
+	};
+
+    
+    if(!oContentsTable[cafe_watch_name]){
+        cafe_watch_name = 'digital_064_05';
+        cafe_watch_font = '4';
+        cafe_watch_color = '7F7F7F';
+        cafe_watch_bgcolor = 'FFFFFF';
+    }
+
+      if( bSupportHTML5 ){
+          var optionWatchWidget = {
+            fontColor: "#"+cafe_watch_color,
+            bgColor: "#"+cafe_watch_bgcolor,
+            req_url: sDataUrl,
+            img_url: sBackgroundImgUrl,
+            fontData: cafe_watch_font,
+            contentsType: oContentsTable[cafe_watch_name],
+            containerName: cafe_watch_area_Id
+        };
+
+        var oClockWidget = new naver.widget.Clock(optionWatchWidget);
+
+         try{
+            parentResizeIframe('cafe_main');
+        }catch(e){}
+    } else {
+         var watch_vars = {
+            req_url   : encodeURIComponent(sDataUrl),
+            fontData  : cafe_watch_font,
+            fontColor : cafe_watch_color,
+            bgColor   : cafe_watch_bgcolor,
+            url       : '/common/flash/watch/',
+            name      : cafe_watch_name,
+            setUrl    : function(){
+                return this.url + this.name +'.swf';
+            },
+            flashvars : function(){
+                 return "req_url=" + this.req_url +"&fontData=" + this.fontData +"&fontColor=" + this.fontColor + "&bgColor=" + this.bgColor;
+            },
+            height    : function(){
+                var n = this.name;
+                h = n.match(/_\s*(.*?)_/)[1];
+                h = h.replace(/^[0]/,'');
+                return h;
+            }
+        };
+
+        function initWatchWidget()
+        {
+            new widget(cafe_watch_area_Id, {
+                setUrl : watch_vars.setUrl(),
+                getData : 'flash',
+                flashvars : watch_vars.flashvars(),
+                height : watch_vars.height()
+            });
+
+            $(cafe_watch_area_Id).style.height=watch_vars.height()+"px";
+            try{
+                parentResizeIframe('cafe_main');
+            }catch(e){}
+        }
+
+        LH.add("initWatchWidget()");
+    }
+
+
+
+
+    
+    var sWeatherWidgetUrl = '/ContentWidget.nhn?m=weather&iconid=3&type=1&area=11B10101';
+    
+    function initWeatherWidget()
+    {
+        new widget('widget-weather', {
+            setUrl : sWeatherWidgetUrl
+        });
+    }
+    LH.add("initWeatherWidget()");
+
+
+
+LH.add("callMemberNews('visit');");
+LH.add("parentResizeIframe('cafe_main')");
+</script>
+
+
+
+<form name="notifrm" method="post" action="">
+    <input type="hidden" name="clubid" value="25824422">
+    <input type="hidden" name="noticode" value="">
+    <textarea name="comment" style="display: none;" title="댓글 팝업"></textarea>
+</form>
+<script type="text/javascript">
+    oOneToOneChatLauncher.setIsCafeMember(false);
+
+	function initAutoAndRight() {
+		// AjaxUI
+		// 자동출처 기능의 사용여부를 두번째 파라미터에 지정합니다.
+		AutoSourcing.init( 'post_%id%' , false );
+
+		if (false==true) {
+			blockMouseRight();
+		}
+	}
+	LH.add( "initAutoAndRight()" );
+
+
+    
+    if ($Agent().IE) {
+        Ajax.initFlash("/common/flash/ajax.swf");
+    }
+</script>
+<script type="text/javascript">
+	// CAFESUS-7781 by laziel
+	var goFitter;
+	var gnFitted = 0;
+
+	function fitFrame(){
+		if(gnFitted < 10){ // 0.5초씩 10회
+			parentResizeIframe('cafe_main');
+			goFitter = window.setTimeout('fitFrame()', 500);
+			gnFitted++;
+		} else {
+			stopFitFrame();
+		}
+	}
+
+	function stopFitFrame(){
+		if(goFitter){
+			Event.unregister(window, 'load', fitFrame);
+			window.clearTimeout(goFitter);
+			goFitter = gnFitted = null;
+		}
+	}
+
+	Event.register(window, 'load', fitFrame);
+	Event.register(window, 'unload', stopFitFrame);
+
+	var bTablet = false;
+	var oTabletHandler = new TabletHandler(bTablet);
+
+
+var cafenameTitle = "[알기쉬운 정책자금] 정책자금,기업부설연구소, 벤처인증";
+LH.add(changeTitle(cafenameTitle + " : " +  "네이버 카페"));
+LH.add(initTopLayerQuery());
+
+
+
+</script>
+
+
+
+
+<script type="text/javascript">
+
+
+
+
+	function showDenyNamelessLayer() {
+		
+		var layerScrollTop = document.getElementsByTagName('HTML')[0].scrollTop;
+		var layerClientHeight = document.getElementsByTagName('HTML')[0].clientHeight;
+		var layerPosition = layerScrollTop + (layerClientHeight * 0.5);
+		document.getElementById("denyNamelessLayer").style.top = layerPosition + "px";
+		document.getElementById("denyNamelessLayer").style.display = "";
+	}
+
+
+
+function hideDenyNamelessLayer() {
+	document.getElementById("denyNamelessLayer").style.display = "none";
+}
+
+function redirectToCertPage() {
+	toCertPage(encodeURIComponent(document.location.href), encodeURIComponent('https://cafe.naver.com/tantanms'));
+}
+</script>
+<div id="denyNamelessLayer" class="cafetype_layer2" style="width:356px;top:0px;left:440px;margin:0;display:none;"> 
+	<img src="https://cafe.pstatic.net/img/realname/ico_layer.gif" width="25" height="24" alt="">
+	<h3><span>[알기쉬운 정책자금] 정책자금,기업부설연구소, 벤처인증</span> 카페는<br>실명 확인 회원만 가입 받고 있습니다.</h3> 
+	<p class="layer_txt">카페에 가입 하시려면 실명 확인을 해주세요.</p>
+	<div class="btn_box">
+		<a href="#" onclick="hideDenyNamelessLayer(); return false;"><img src="https://cafe.pstatic.net/img/realname/btn_clse_lay.gif" width="47" height="26" alt="닫기"></a> <a href="#" onclick="redirectToCertPage();"><img src="https://cafe.pstatic.net/img/realname/btn_cfm_lay.gif" width="105" height="26" alt="실명 확인 하기"></a>
+	</div>
+	<a href="#" onclick="hideDenyNamelessLayer(); return false;" class="btn_close" role="button"><img src="https://cafe.pstatic.net/img/btn_close_layer3.gif" width="19" height="19" alt="닫기"></a>
+	<iframe frameborder="0" scrolling="no" style="width:400px;" title="빈프레임"></iframe>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> practice 2 </title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <script>
+        var a = prompt("input number1");
+        var b = prompt("input number2");
+
+        if(isNaN(a)||isNaN(b)){
+            alert("input right number");
+        } else {
+            a= parseInt(a);
+            b= parseInt(b);
+            while(true){
+            if (a<b){
+                alert(a+"is less than"+b);
+                a=a+1;
+                } else {
+                    break;
+                }
+            }
+        }
+        
+        </script>
+    </body>
+</html>
